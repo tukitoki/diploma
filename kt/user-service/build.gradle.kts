@@ -15,3 +15,14 @@ dependencies {
     api(libs.spring.boot.starter.validation)
     api(libs.openapi.ui)
 }
+
+version = "0.0.1"
+
+springBoot {
+    buildInfo {
+        properties {
+            name = project.name
+            version = project.version.toString()
+        }
+    }
+}
