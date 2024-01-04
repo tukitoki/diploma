@@ -11,5 +11,7 @@ plugins {
 }
 
 dependencies {
-    api(libs.org.springframework.boot.spring.boot.starter.web)
+    api(libs.spring.boot.starter.web)
+    api(libs.spring.boot.starter.validation)
+    api(libs.openapi.ui)
 }
