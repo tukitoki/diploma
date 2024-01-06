@@ -14,9 +14,10 @@ class OpenApiConfig(
     @Bean
     fun api(): OpenAPI {
         return OpenAPI()
-            .info(Info()
-                .title(buildProperties.name)
-                .version(buildProperties.version)
+            .info(
+                Info()
+                    .title(buildProperties.name)
+                    .version(buildProperties.version)
             )
     }
 }

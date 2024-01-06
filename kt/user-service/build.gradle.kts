@@ -13,6 +13,12 @@ plugins {
 dependencies {
     api(libs.spring.boot.starter.web)
     api(libs.spring.boot.starter.validation)
+
+    api(libs.exposed.starter)
+    api(libs.exposed.java.time)
+
+    api(libs.postgesql.driver)
+
     api(libs.openapi.ui)
 }
 
