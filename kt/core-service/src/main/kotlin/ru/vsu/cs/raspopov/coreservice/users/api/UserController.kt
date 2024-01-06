@@ -42,6 +42,7 @@ class UserController(
         @PathVariable id: Long,
         @RequestBody userDto: UserDto,
     ): ResponseEntity<UserDto> {
+
         return ok(userService.updateUserById(id, userDto))
     }
 
@@ -50,6 +51,7 @@ class UserController(
         @PathVariable id: Long,
         @RequestBody request: UpdatePasswordRequest,
     ): ResponseEntity<UserDto> {
+
         return ok(userService.updateUserPasswordById(id, request))
     }
 
@@ -58,6 +60,7 @@ class UserController(
         @PathVariable id: Long,
         @RequestParam status: UserStatus,
     ): ResponseEntity<UserDto> {
+
         return ok(userService.changeUserStatusById(id, status))
     }
 }
