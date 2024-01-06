@@ -11,4 +11,4 @@ plugins {
 }
 
 rootProject.name = "kt"
-include( "user-service")
+include("core-service")
