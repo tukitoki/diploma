@@ -10,6 +10,7 @@ plugins {
 dependencies {
     api(libs.spring.boot.starter.web)
     api(libs.spring.boot.starter.validation)
+    api(libs.spring.security.crypto)
 
     api(libs.exposed.starter)
     api(libs.exposed.java.time)

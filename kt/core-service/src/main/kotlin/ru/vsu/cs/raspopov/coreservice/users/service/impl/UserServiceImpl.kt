@@ -2,11 +2,14 @@ package ru.vsu.cs.raspopov.coreservice.users.service.impl
 
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.select
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import ru.vsu.cs.raspopov.coreservice.users.exception.GeneralException
+import ru.vsu.cs.raspopov.coreservice.users.common.exception.ExceptionCode.AUTH_FAILED
+import ru.vsu.cs.raspopov.coreservice.users.common.exception.GeneralException
 import ru.vsu.cs.raspopov.coreservice.users.common.exposed.exists
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UpdatePasswordRequest
+import ru.vsu.cs.raspopov.coreservice.users.model.dto.UserAuthRequest
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UserDto
 import ru.vsu.cs.raspopov.coreservice.users.model.entity.User
 import ru.vsu.cs.raspopov.coreservice.users.model.enums.UserStatus
@@ -16,7 +19,10 @@ import java.time.LocalDateTime
 
 @Transactional
 @Service
-class UserServiceImpl : UserService {
+class UserServiceImpl(
+    @Suppress("SpringJavaInjectionPointsAutowiringInspection")
+    private val passwordEncoder: BCryptPasswordEncoder,
+) : UserService {
 
     override fun getUserById(id: Long) = throwableFindEntityById(id).toDto()
 
@@ -25,7 +31,7 @@ class UserServiceImpl : UserService {
 
         val u = User.new {
             this.username = userDto.username
-            this.password = userDto.password
+            this.password = passwordEncoder.encode(userDto.password)
             this.email = userDto.email
             this.phone = userDto.phone
             this.status = userDto.status
@@ -33,6 +39,19 @@ class UserServiceImpl : UserService {
         }
 
         return u.toDto()
+    }
+
+    override fun authentication(request: UserAuthRequest): UserDto {
+        val user = User.find {
+            Users.username eq request.username
+        }.singleOrNull() ?: throw GeneralException(AUTH_FAILED)
+
+        val matchingResult = passwordEncoder.matches(request.password, user.password)
+
+        if (matchingResult.not())
+            throw GeneralException(AUTH_FAILED)
+
+        return user.toDto()
     }
 
     override fun deleteUserById(id: Long) {
@@ -60,7 +79,7 @@ class UserServiceImpl : UserService {
     override fun updateUserPasswordById(id: Long, request: UpdatePasswordRequest): UserDto {
         val updatableUser = throwableFindEntityById(id)
 
-        updatableUser.password = request.password
+        updatableUser.password = passwordEncoder.encode(request.password)
 
         return updatableUser.toDto()
     }
@@ -81,6 +100,8 @@ class UserServiceImpl : UserService {
     private fun throwableFindEntityById(id: Long) = findEntityById(id) ?: throw GeneralException("No user exist")
 
     private fun validateUser(userDto: UserDto) {
+
+
         if (User.find {
                 Users.username
                     .eq(userDto.username)

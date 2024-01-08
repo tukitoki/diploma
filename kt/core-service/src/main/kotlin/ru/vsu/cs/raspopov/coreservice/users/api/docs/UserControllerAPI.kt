@@ -3,6 +3,7 @@ package ru.vsu.cs.raspopov.coreservice.users.api.docs
 import io.swagger.v3.oas.annotations.Operation
 import org.springframework.http.ResponseEntity
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UpdatePasswordRequest
+import ru.vsu.cs.raspopov.coreservice.users.model.dto.UserAuthRequest
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UserDto
 import ru.vsu.cs.raspopov.coreservice.users.model.enums.UserStatus
 
@@ -25,4 +26,7 @@ interface UserControllerAPI {
 
     @Operation(summary = "Change user status")
     fun changeUserStatusById(id: Long, status: UserStatus): ResponseEntity<UserDto>
+
+    @Operation(summary = "User authentication")
+    fun authentication(request: UserAuthRequest): ResponseEntity<UserDto>
 }

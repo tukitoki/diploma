@@ -1,3 +1,6 @@
+context:
+  initializer:
+    classes: ru.vsu.cs.raspopov.coreservice.users.config.BeansConfig
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/user-service

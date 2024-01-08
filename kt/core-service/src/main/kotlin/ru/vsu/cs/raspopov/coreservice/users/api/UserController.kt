@@ -5,11 +5,12 @@ import org.springframework.http.ResponseEntity.ok
 import org.springframework.web.bind.annotation.*
 import ru.vsu.cs.raspopov.coreservice.users.api.docs.UserControllerAPI
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UpdatePasswordRequest
+import ru.vsu.cs.raspopov.coreservice.users.model.dto.UserAuthRequest
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UserDto
 import ru.vsu.cs.raspopov.coreservice.users.model.enums.UserStatus
 import ru.vsu.cs.raspopov.coreservice.users.service.UserService
 
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 @RestController
 class UserController(
     private val userService: UserService,
@@ -62,5 +63,11 @@ class UserController(
     ): ResponseEntity<UserDto> {
 
         return ok(userService.changeUserStatusById(id, status))
+    }
+
+    @PostMapping("/auth")
+    override fun authentication(request: UserAuthRequest): ResponseEntity<UserDto> {
+
+        return ok(userService.authentication(request))
     }
 }
