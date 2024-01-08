@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus
 
 class GeneralException(
     message: String,
-    var status: HttpStatus = HttpStatus.BAD_REQUEST
+    var status: HttpStatus = HttpStatus.BAD_REQUEST,
 ) : RuntimeException(message) {
 
     constructor(exceptionCode: ExceptionCode) : this(

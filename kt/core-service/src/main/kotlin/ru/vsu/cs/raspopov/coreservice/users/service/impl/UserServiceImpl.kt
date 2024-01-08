@@ -1,5 +1,7 @@
 package ru.vsu.cs.raspopov.coreservice.users.service.impl
 
+import org.jetbrains.exposed.sql.Expression
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.neq
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.select
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -100,27 +102,27 @@ class UserServiceImpl(
     private fun throwableFindEntityById(id: Long) = findEntityById(id) ?: throw GeneralException("No user exist")
 
     private fun validateUser(userDto: UserDto) {
-
-
-        if (User.find {
+        val neqUserId: Expression<Boolean> = Users.id neq userDto.userId
+        val takenPart = when {
+            User.find {
                 Users.username
                     .eq(userDto.username)
-                    .and(Users.id neq userDto.userId)
-            }.exists()
-        ) throw GeneralException("This username is already taken")
-
-        if (User.find {
+                    .and(neqUserId)
+            }.exists() -> "username"
+            User.find {
                 Users.email
                     .eq(userDto.email)
-                    .and(Users.id neq userDto.userId)
-            }.exists()
-        ) throw GeneralException("This email is already taken")
-
-        if (User.find {
+                    .and(neqUserId)
+            }.exists() -> "email"
+            User.find {
                 Users.phone
                     .eq(userDto.phone)
-                    .and(Users.id neq userDto.userId)
-            }.exists()
-        ) throw GeneralException("This phone number is already taken")
+                    .and(neqUserId)
+            }.exists() -> "phone number"
+            else -> null
+        }
+
+        if (takenPart != null)
+            throw GeneralException("This $takenPart is already taken")
     }
 }

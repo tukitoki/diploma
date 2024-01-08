@@ -13,7 +13,7 @@ exposed-version = "0.45.0"
 
 postgresql-driver-version = "42.7.1"
 
-openapi-version = "2.3.0"
+springdoc-openapi-version = "2.3.0"
 
 [libraries]
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin-gradle-plugin" }
@@ -22,12 +22,13 @@ spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-start
 spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "spring-boot-version" }
 spring-security-crypto = { module = "org.springframework.security:spring-security-crypto", version.ref = "spring-security-crypto-version"}
 
+springdoc-openapi-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc-openapi-version" }
+
 exposed-starter = { module = "org.jetbrains.exposed:exposed-spring-boot-starter", version.ref = "exposed-version" }
 exposed-java-time = { module = "org.jetbrains.exposed:exposed-java-time", version.ref = "exposed-version" }
 
 postgesql-driver = { module = "org.postgresql:postgresql", version.ref = "postgresql-driver-version" }
 
-openapi-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "openapi-version" }
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot-version" }

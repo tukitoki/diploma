@@ -17,7 +17,7 @@ dependencies {
 
     api(libs.postgesql.driver)
 
-    api(libs.openapi.ui)
+    api(libs.springdoc.openapi.ui)
 }
 
 version = "0.0.1"

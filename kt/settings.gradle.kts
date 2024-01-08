@@ -12,3 +12,4 @@ plugins {
 
 rootProject.name = "kt"
 include("core-service")
+include("auth-service")
