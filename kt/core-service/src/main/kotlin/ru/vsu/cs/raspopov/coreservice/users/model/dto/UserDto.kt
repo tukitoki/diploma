@@ -1,6 +1,7 @@
 package ru.vsu.cs.raspopov.coreservice.users.model.dto
 
 import ru.vsu.cs.raspopov.coreservice.users.model.entity.User
+import ru.vsu.cs.raspopov.coreservice.users.model.enums.Role
 import ru.vsu.cs.raspopov.coreservice.users.model.enums.UserStatus
 
 data class UserDto(
@@ -10,6 +11,7 @@ data class UserDto(
     val email: String,
     val phone: String? = null,
     val status: UserStatus,
+    val role: Role,
 ) {
     constructor(user: User) : this(
         userId = user.id.value,
@@ -18,5 +20,6 @@ data class UserDto(
         email = user.email,
         phone = user.phone,
         status = user.status,
+        role = user.role
     )
 }

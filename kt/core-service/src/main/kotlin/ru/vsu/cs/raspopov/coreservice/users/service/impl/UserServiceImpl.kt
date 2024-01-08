@@ -1,12 +1,11 @@
 package ru.vsu.cs.raspopov.coreservice.users.service.impl
 
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.and
-import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.select
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import ru.vsu.cs.raspopov.coreservice.users.exception.GeneralException
+import ru.vsu.cs.raspopov.coreservice.users.common.exposed.exists
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UpdatePasswordRequest
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UserDto
 import ru.vsu.cs.raspopov.coreservice.users.model.entity.User
@@ -30,6 +29,7 @@ class UserServiceImpl : UserService {
             this.email = userDto.email
             this.phone = userDto.phone
             this.status = userDto.status
+            this.role = userDto.role
         }
 
         return u.toDto()
@@ -50,6 +50,7 @@ class UserServiceImpl : UserService {
             this.username = userDto.username
             this.email = userDto.email
             this.phone = userDto.phone
+            this.role = userDto.role
             this.updatedAt = LocalDateTime.now()
         }
 
@@ -84,18 +85,21 @@ class UserServiceImpl : UserService {
                 Users.username
                     .eq(userDto.username)
                     .and(Users.id neq userDto.userId)
-            }.empty()) throw GeneralException("This username is already taken")
+            }.exists()
+        ) throw GeneralException("This username is already taken")
 
         if (User.find {
                 Users.email
                     .eq(userDto.email)
                     .and(Users.id neq userDto.userId)
-            }.empty()) throw GeneralException("This email is already taken")
+            }.exists()
+        ) throw GeneralException("This email is already taken")
 
         if (User.find {
                 Users.phone
                     .eq(userDto.phone)
                     .and(Users.id neq userDto.userId)
-            }.empty()) throw GeneralException("This phone number is already taken")
+            }.exists()
+        ) throw GeneralException("This phone number is already taken")
     }
 }

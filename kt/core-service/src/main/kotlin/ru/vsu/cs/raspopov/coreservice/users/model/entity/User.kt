@@ -2,7 +2,7 @@ package ru.vsu.cs.raspopov.coreservice.users.model.entity
 
 import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
-import ru.vsu.cs.raspopov.coreservice.users.exposed.TimeAtLongEntity
+import ru.vsu.cs.raspopov.coreservice.users.common.exposed.TimeAtLongEntity
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UserDto
 import ru.vsu.cs.raspopov.coreservice.users.model.table.Users
 
@@ -13,6 +13,7 @@ class User(id: EntityID<Long>) : TimeAtLongEntity(id, Users) {
     var email by Users.email
     var phone by Users.phone
     var status by Users.status
+    var role by Users.role
 
     fun toDto() = UserDto(this)
 

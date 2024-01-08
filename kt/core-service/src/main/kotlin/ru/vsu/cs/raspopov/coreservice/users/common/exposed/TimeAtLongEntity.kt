@@ -1,4 +1,4 @@
-package ru.vsu.cs.raspopov.coreservice.users.exposed
+package ru.vsu.cs.raspopov.coreservice.users.common.exposed
 
 import org.jetbrains.exposed.dao.LongEntity
 import org.jetbrains.exposed.dao.id.EntityID
