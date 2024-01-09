@@ -1,9 +1,7 @@
 package ru.vsu.cs.raspopov.coreservice.users.service.impl
 
-import org.jetbrains.exposed.sql.Expression
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.neq
-import org.jetbrains.exposed.sql.and
-import org.jetbrains.exposed.sql.select
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -95,7 +93,8 @@ class UserServiceImpl(
     }
 
     private fun findEntityById(id: Long) = Users
-        .select { Users.id eq id }
+        .selectAll()
+        .where { Users.id eq id }
         .let { User.wrapRows(it) }
         .singleOrNull()
 
