@@ -16,5 +16,6 @@ repositories {
 }
 
 dependencies {
-    implementation(libs.kotlin.gradle.plugin)
+    implementation(libs.jetbrains.kotlin.gradle.plugin)
+    implementation(libs.jetbrains.kotlin.reflect)
 }

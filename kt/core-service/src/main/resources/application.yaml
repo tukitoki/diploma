@@ -1,9 +1,13 @@
+server:
+  port: 9100
+  shutdown: GRACEFUL
+
 context:
   initializer:
     classes: ru.vsu.cs.raspopov.coreservice.users.config.BeansConfig
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/user-service
+    url: jdbc:postgresql://localhost:65432/user-service
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -13,7 +17,3 @@ spring:
 springdoc:
   swagger-ui:
     path: /swagger-ui-custom.html
-
-server:
-  port: 9100
-  shutdown: GRACEFUL

@@ -1,0 +1,15 @@
+server:
+  port: 9200
+
+#spring:
+#  data:
+#    redis:
+#      port: 9210
+#      password: password
+#      host: localhost
+
+jwt-security:
+  access-secret-key: '{"kty":"oct","k":"hi7S5RX5ZRZooHA0RKGctZ-KtR9FoESgCnH-3BNg5XI"}'
+  access-tkn-ttl: 1
+  refresh-secret-key: '{"kty":"oct","k":"956PBFst1FguLr5irJD-aQ"}'
+  refresh-tkn-ttl: 1
