@@ -8,6 +8,8 @@ plugins {
 }
 
 dependencies {
+    implementation(libs.jetbrains.kotlin.gradle.plugin)
+
     api(libs.spring.boot.starter.web)
     api(libs.spring.boot.starter.validation)
     api(libs.spring.security.crypto)

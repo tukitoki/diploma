@@ -66,7 +66,9 @@ class UserController(
     }
 
     @PostMapping("/auth")
-    override fun authentication(request: UserAuthRequest): ResponseEntity<UserDto> {
+    override fun authentication(
+        @RequestBody request: UserAuthRequest,
+    ): ResponseEntity<UserDto> {
 
         return ok(userService.authentication(request))
     }
