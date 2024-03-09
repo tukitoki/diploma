@@ -1,8 +1,9 @@
 package ru.vsu.cs.raspopov.authservice.service.impl
 
-import org.springframework.security.authorization.AuthorizationManager
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Service
+import ru.vsu.cs.raspopov.authservice.exception.ExceptionCode
+import ru.vsu.cs.raspopov.authservice.exception.GeneralException
 import ru.vsu.cs.raspopov.authservice.model.dto.JwtTokens
 import ru.vsu.cs.raspopov.authservice.model.dto.TokenValidationOutput
 import ru.vsu.cs.raspopov.authservice.model.redis.AccessToken
@@ -10,8 +11,6 @@ import ru.vsu.cs.raspopov.authservice.model.redis.RefreshToken
 import ru.vsu.cs.raspopov.authservice.model.redis.Token
 import ru.vsu.cs.raspopov.authservice.security.config.TokenUtilStore
 import ru.vsu.cs.raspopov.authservice.service.ITokenService
-import java.time.Instant
-import java.time.LocalDate
 
 @Service
 class TokenService(
@@ -21,7 +20,7 @@ class TokenService(
 
     override fun serializeAccessToken(accessToken: AccessToken): String {
         val token = tokenUtilStore.accessTokenStringSerializer.invoke(accessToken).getOrElse {
-            TODO("MAKE CORRECT THROWABLE")
+            throw GeneralException(ExceptionCode.TOKEN_CANT_BE_SERIALIZED)
         }
 
         return token
@@ -29,7 +28,7 @@ class TokenService(
 
     override fun serializeRefreshToken(refreshToken: RefreshToken): String {
         val token = tokenUtilStore.refreshTokenStringSerializer.invoke(refreshToken).getOrElse {
-            TODO("MAKE CORRECT THROWABLE")
+            throw GeneralException(ExceptionCode.TOKEN_CANT_BE_SERIALIZED)
         }
 
         return token
@@ -37,15 +36,15 @@ class TokenService(
 
     override fun deserializeAccessToken(serializedAccessToken: String): AccessToken {
         val token = tokenUtilStore.accessTokenStringDeserializer.invoke(serializedAccessToken).getOrElse {
-            TODO("MAKE CORRECT THROWABLE")
-        } ?: TODO("MAKE CORRECT THROWABLE WITH NULLABLE TOKEN")
+            throw GeneralException(ExceptionCode.TOKEN_CANT_BE_PARSED)
+        } ?: throw GeneralException("Token is invalid")
 
         return token
     }
 
     override fun deserializeRefreshToken(serializedRefreshToken: String): RefreshToken {
         val token = tokenUtilStore.refreshTokenStringDeserializer.invoke(serializedRefreshToken).getOrElse {
-            TODO("MAKE CORRECT THROWABLE")
+            throw GeneralException(ExceptionCode.TOKEN_CANT_BE_PARSED)
         }
 
         return token
@@ -64,13 +63,12 @@ class TokenService(
     }
 
     override fun validateSerializedAccessToken(serializedAccessToken: String): TokenValidationOutput {
-        val token = tokenUtilStore.refreshTokenStringDeserializer.invoke(serializedAccessToken).getOrElse {
-            TODO()
-        }
+        val token = tokenUtilStore.accessTokenStringDeserializer.invoke(serializedAccessToken).getOrElse {
+            throw GeneralException(ExceptionCode.TOKEN_CANT_BE_PARSED)
+        } ?: throw GeneralException("Token is invalid")
 
-        if (token.expiredAt.isBefore(Instant.now())) {
-            TODO()
-        }
+        if (token.isExpired())
+            throw GeneralException(ExceptionCode.TOKEN_EXPIRED)
 
         return TokenValidationOutput(true)
     }

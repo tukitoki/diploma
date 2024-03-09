@@ -1,16 +1,28 @@
 package ru.vsu.cs.raspopov.authservice.api
 
+import org.springframework.http.HttpHeaders
+import org.springframework.http.ResponseEntity
+import org.springframework.http.ResponseEntity.ok
 import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RestController
 import ru.vsu.cs.raspopov.authservice.model.dto.JwtTokens
+import ru.vsu.cs.raspopov.authservice.model.dto.TokenValidationOutput
+import ru.vsu.cs.raspopov.authservice.service.impl.TokenService
 
 @RestController
-class TokenController {
+class TokenController(
+    private val tokenService: TokenService,
+) {
 
     @PostMapping(REFRESH_JWT_TOKEN)
     fun refreshJwt(): JwtTokens = TODO()
 
     @PostMapping(VALIDATE_ACCESS_TOKEN)
-    fun validateAccessToken(): Nothing = TODO()
+    fun validateAccessToken(
+        @RequestHeader(value = HttpHeaders.AUTHORIZATION) token: String,
+    ): ResponseEntity<TokenValidationOutput> {
+
+        return ok(tokenService.validateSerializedAccessToken(token))
+    }
 }

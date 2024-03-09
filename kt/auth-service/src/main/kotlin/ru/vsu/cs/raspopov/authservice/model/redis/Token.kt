@@ -11,4 +11,6 @@ abstract class Token(
 ) {
 
     val ttl: Long = Duration.between(createdAt, expiredAt).seconds
+
+    fun isExpired() = this.expiredAt.isBefore(Instant.now())
 }
