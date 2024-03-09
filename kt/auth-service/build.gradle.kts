@@ -17,14 +17,15 @@ dependencies {
     api(libs.spring.boot.starter.data.redis)
 
     implementation(platform(libs.spring.cloud.bom))
-    api(libs.spring.cloud.eureka.client)
+    api(libs.spring.cloud.starter.eureka.client)
+    api(libs.spring.cloud.starter.openfeign)
 
     api(libs.redis.client.jedis)
 
     val jwtHoseVersion = "9.37.3"
     implementation("com.nimbusds:nimbus-jose-jwt:$jwtHoseVersion")
 
-    api(libs.springdoc.openapi.ui)
+    api(libs.springdoc.openapi.starter.webmvc.ui)
 
     api(libs.org.apache.log4j.kotlin)
 }

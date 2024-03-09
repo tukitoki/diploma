@@ -1,5 +1,5 @@
 server:
-  port: 0
+  port: 9200
 
 #spring:
 #  data:
@@ -18,7 +18,7 @@ eureka:
       defaultZone: ${EUREKA_URI:http://localhost:8081/eureka}
 
 jwt-security:
-  access-secret-key: '{"kty":"oct","k":"hi7S5RX5ZRZooHA0RKGctZ-KtR9FoESgCnH-3BNg5XI"}'
+  access-secret-key: 'hi7S5RX5ZRZooHA0RKGctZ-KtR9FoESgCnH-3BNg5XI'
   access-tkn-ttl: 1
   refresh-secret-key: '{"kty":"oct","k":"956PBFst1FguLr5irJD-aQ"}'
   refresh-tkn-ttl: 1

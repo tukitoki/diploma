@@ -39,6 +39,7 @@ class WebConfig(
             .authorizeHttpRequests {
                 it.requestMatchers(LOGIN_PATH).permitAll()
                     .requestMatchers(REGISTER).permitAll()
+                    .requestMatchers(VALIDATE_ACCESS_TOKEN).permitAll()
                     .anyRequest().authenticated()
             }
             .addFilterBefore(

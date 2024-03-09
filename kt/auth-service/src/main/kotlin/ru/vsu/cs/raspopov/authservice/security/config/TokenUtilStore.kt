@@ -39,14 +39,14 @@ class TokenUtilStore(
             DirectDecrypter(OctetSequenceKey.parse(properties.refreshSecretKey))
         )
         accessTokenStringDeserializer = AccessTokenStringDeserializer(
-            MACVerifier(OctetSequenceKey.parse(properties.accessSecretKey))
+            MACVerifier(properties.accessSecretKey)
         )
 
         refreshTokenStringSerializer = JweRefreshTokenStringSerializer(
             DirectEncrypter(OctetSequenceKey.parse(properties.refreshSecretKey)),
         )
         accessTokenStringSerializer = JwsAccessTokenStringSerializer(
-            MACSigner(OctetSequenceKey.parse(properties.accessSecretKey))
+            MACSigner(properties.accessSecretKey)
         )
 
         refreshTokenFactory = RefreshTokenFactory(properties.refreshTknTtl)

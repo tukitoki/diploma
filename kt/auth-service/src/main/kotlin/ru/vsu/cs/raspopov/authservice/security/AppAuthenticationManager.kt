@@ -6,15 +6,14 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Component
-import ru.vsu.cs.raspopov.authservice.client.UserClient
+import ru.vsu.cs.raspopov.authservice.client.UserOpenFeignClient
 import ru.vsu.cs.raspopov.authservice.model.dto.UserAuthRequest
-import ru.vsu.cs.raspopov.authservice.model.redis.AccessToken
 import ru.vsu.cs.raspopov.authservice.model.redis.Token
 import java.time.Instant
 
 @Component
 class AppAuthenticationManager(
-    private val userClient: UserClient,
+    private val userOpenFeignClient: UserOpenFeignClient,
 ) : AuthenticationManager {
 
     @Throws(AuthenticationException::class)
@@ -32,14 +31,12 @@ class AppAuthenticationManager(
         }
 
         val password = authentication.credentials.toString()
-        val user = userClient.authenticateUser(
+        val user = userOpenFeignClient.authenticateUser(
             UserAuthRequest(
                 authentication.name,
                 password,
             )
-        ).getOrElse {
-            TODO("GOOD THROWABLE")
-        } ?: TODO()
+        )
 
         return UsernamePasswordAuthenticationToken(
             user.username,
