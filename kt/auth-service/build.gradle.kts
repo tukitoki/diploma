@@ -7,8 +7,6 @@ plugins {
     alias(libs.plugins.kotlin.spring)
 }
 
-val jwtHoseVersion = "9.37.3"
-
 dependencies {
     implementation(libs.jetbrains.kotlin.gradle.plugin)
     implementation(libs.jetbrains.kotlin.reflect)
@@ -18,8 +16,12 @@ dependencies {
     api(libs.spring.boot.starter.security)
     api(libs.spring.boot.starter.data.redis)
 
+    implementation(platform(libs.spring.cloud.bom))
+    api(libs.spring.cloud.eureka.client)
+
     api(libs.redis.client.jedis)
 
+    val jwtHoseVersion = "9.37.3"
     implementation("com.nimbusds:nimbus-jose-jwt:$jwtHoseVersion")
 
     api(libs.springdoc.openapi.ui)

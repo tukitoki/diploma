@@ -14,6 +14,9 @@ dependencies {
     api(libs.spring.boot.starter.validation)
     api(libs.spring.security.crypto)
 
+    implementation(platform(libs.spring.cloud.bom))
+    api(libs.spring.cloud.eureka.client)
+
     api(libs.exposed.starter)
     api(libs.exposed.java.time)
 

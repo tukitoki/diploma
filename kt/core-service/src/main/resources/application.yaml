@@ -1,11 +1,13 @@
 server:
-  port: 9100
+  port: 0
   shutdown: GRACEFUL
 
 context:
   initializer:
     classes: ru.vsu.cs.raspopov.coreservice.users.config.BeansConfig
 spring:
+  application:
+    name: user-service
   datasource:
     url: jdbc:postgresql://localhost:65432/user-service
     username: postgres
@@ -13,6 +15,10 @@ spring:
     driver-class-name: org.postgresql.Driver
   exposed:
     generate-ddl: true
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8081/eureka}
 
 springdoc:
   swagger-ui:
