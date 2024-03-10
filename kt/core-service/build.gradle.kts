@@ -15,14 +15,14 @@ dependencies {
     api(libs.spring.security.crypto)
 
     implementation(platform(libs.spring.cloud.bom))
-    api(libs.spring.cloud.eureka.client)
+    api(libs.spring.cloud.starter.eureka.client)
 
     api(libs.exposed.starter)
     api(libs.exposed.java.time)
 
     api(libs.postgesql.driver)
 
-    api(libs.springdoc.openapi.ui)
+    api(libs.springdoc.openapi.starter.webmvc.ui)
 }
 
 version = "0.0.1"
