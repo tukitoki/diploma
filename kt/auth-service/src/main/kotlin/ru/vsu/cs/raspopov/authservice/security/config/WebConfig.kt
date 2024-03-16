@@ -8,12 +8,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.access.intercept.AuthorizationFilter
 import org.springframework.security.web.authentication.AuthenticationFilter
-import org.springframework.security.web.csrf.CsrfFilter
 import ru.vsu.cs.raspopov.authservice.api.*
 import ru.vsu.cs.raspopov.authservice.security.SecurityProperties
-import ru.vsu.cs.raspopov.authservice.security.filter.JWTAuthenticationFilter
-import ru.vsu.cs.raspopov.authservice.service.impl.TokenService
 
 @EnableMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
@@ -42,10 +40,10 @@ class WebConfig(
                     .requestMatchers(VALIDATE_ACCESS_TOKEN).permitAll()
                     .anyRequest().authenticated()
             }
-            .addFilterBefore(
+            .addFilterAfter(
                 AuthenticationFilter(
                     authenticationManager, JwtAuthenticationConverter(properties, tokenUtilStore)
-                ), CsrfFilter::class.java
+                ), AuthorizationFilter::class.java
             )
             .build()
     }

@@ -24,8 +24,8 @@ class AuthenticationFilter(
 
             webClientBuilder.build()
                 .post()
-                .uri("http://localhost:8082/auth-service/validate")
-                .headers { it.setBearerAuth(token) }
+                .uri("http://auth-service/validate")
+                .headers { it.set(HttpHeaders.AUTHORIZATION, token) }
                 .retrieve()
                 .toBodilessEntity()
                 .doOnError {
@@ -42,6 +42,6 @@ class AuthenticationFilter(
     }
 
     companion object {
-        const val AUTH_PREFIX = "Bearer"
+        const val AUTH_PREFIX = "Bearer "
     }
 }
