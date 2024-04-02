@@ -1,8 +1,8 @@
 package ru.vsu.cs.raspopov.coreservice.users.model.entity
 
+import ru.vsu.cs.raspopov.exposed.TimeAtLongEntity
 import org.jetbrains.exposed.dao.LongEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
-import ru.vsu.cs.raspopov.coreservice.users.common.exposed.TimeAtLongEntity
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UserDto
 import ru.vsu.cs.raspopov.coreservice.users.model.table.Users
 

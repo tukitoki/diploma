@@ -1,4 +1,4 @@
-package ru.vsu.cs.raspopov.coreservice.users.common.exposed
+package ru.vsu.cs.raspopov.exposed
 
 import org.jetbrains.exposed.dao.id.LongIdTable
 import org.jetbrains.exposed.sql.javatime.datetime

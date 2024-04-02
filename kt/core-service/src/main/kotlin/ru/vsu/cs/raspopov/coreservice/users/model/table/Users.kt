@@ -1,6 +1,6 @@
 package ru.vsu.cs.raspopov.coreservice.users.model.table
 
-import ru.vsu.cs.raspopov.coreservice.users.common.exposed.TimeAtLongIdTable
+import ru.vsu.cs.raspopov.exposed.TimeAtLongIdTable
 import ru.vsu.cs.raspopov.coreservice.users.model.enums.Role
 import ru.vsu.cs.raspopov.coreservice.users.model.enums.UserStatus
 

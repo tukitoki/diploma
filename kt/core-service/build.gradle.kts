@@ -23,6 +23,8 @@ dependencies {
     api(libs.postgesql.driver)
 
     api(libs.springdoc.openapi.starter.webmvc.ui)
+
+    implementation(project(":shared"))
 }
 
 version = "0.0.1"
