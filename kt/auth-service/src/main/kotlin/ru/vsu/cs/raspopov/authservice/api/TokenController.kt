@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RestController
 import ru.vsu.cs.raspopov.authservice.model.dto.JwtTokens
+import ru.vsu.cs.raspopov.authservice.model.dto.TokenParseResponse
 import ru.vsu.cs.raspopov.authservice.model.dto.TokenValidationOutput
 import ru.vsu.cs.raspopov.authservice.service.impl.TokenService
 
@@ -24,5 +25,13 @@ class TokenController(
     ): ResponseEntity<TokenValidationOutput> {
 
         return ok(tokenService.validateSerializedAccessToken(token))
+    }
+
+    @PostMapping
+    fun parseToken(
+        @RequestHeader(value = HttpHeaders.AUTHORIZATION) token: String,
+    ): ResponseEntity<TokenParseResponse> {
+
+        return ok(tokenService.parseToken(token))
     }
 }
