@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import ru.vsu.cs.raspopov.coreservice.users.common.exception.ExceptionCode.AUTH_FAILED
 import ru.vsu.cs.raspopov.coreservice.users.common.exception.GeneralException
-import ru.vsu.cs.raspopov.coreservice.users.common.exposed.exists
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UpdatePasswordRequest
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UserAuthRequest
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UserDto
@@ -15,6 +14,7 @@ import ru.vsu.cs.raspopov.coreservice.users.model.entity.User
 import ru.vsu.cs.raspopov.coreservice.users.model.enums.UserStatus
 import ru.vsu.cs.raspopov.coreservice.users.model.table.Users
 import ru.vsu.cs.raspopov.coreservice.users.service.UserService
+import ru.vsu.cs.raspopov.exposed.exists
 import java.time.LocalDateTime
 
 @Transactional
