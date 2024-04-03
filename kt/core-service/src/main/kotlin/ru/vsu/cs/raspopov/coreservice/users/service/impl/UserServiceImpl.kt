@@ -26,6 +26,10 @@ class UserServiceImpl(
 
     override fun getUserById(id: Long) = throwableFindEntityById(id).toDto()
 
+    override fun getUserByToken(token: String): UserDto {
+        TODO("Not yet implemented")
+    }
+
     override fun createUser(userDto: UserDto): UserDto {
         validateUser(userDto)
 

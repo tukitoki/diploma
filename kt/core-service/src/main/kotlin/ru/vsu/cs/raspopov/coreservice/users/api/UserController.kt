@@ -1,5 +1,6 @@
 package ru.vsu.cs.raspopov.coreservice.users.api
 
+import org.springframework.http.HttpHeaders
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.ok
 import org.springframework.web.bind.annotation.*
@@ -20,6 +21,14 @@ class UserController(
     override fun getUserById(@PathVariable id: Long): ResponseEntity<UserDto> {
 
         return ok(userService.getUserById(id))
+    }
+
+    @GetMapping("/by-token")
+    override fun getUserByToken(
+        @RequestHeader(HttpHeaders.AUTHORIZATION) token: String,
+    ): ResponseEntity<UserDto> {
+
+        return ok(userService.getUserByToken(token))
     }
 
     @PostMapping

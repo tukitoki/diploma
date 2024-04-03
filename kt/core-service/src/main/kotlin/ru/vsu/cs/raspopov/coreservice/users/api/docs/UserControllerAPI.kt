@@ -1,6 +1,7 @@
 package ru.vsu.cs.raspopov.coreservice.users.api.docs
 
 import io.swagger.v3.oas.annotations.Operation
+import org.springframework.http.HttpHeaders
 import org.springframework.http.ResponseEntity
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UpdatePasswordRequest
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UserAuthRequest
@@ -11,6 +12,8 @@ interface UserControllerAPI {
 
     @Operation(summary = "Get user by id")
     fun getUserById(id: Long): ResponseEntity<UserDto>
+
+    fun getUserByToken(token: String): ResponseEntity<UserDto>
 
     @Operation(summary = "Create user")
     fun createUser(userDto: UserDto): ResponseEntity<UserDto>

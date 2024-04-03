@@ -9,6 +9,8 @@ interface UserService {
 
     fun getUserById(id: Long): UserDto
 
+    fun getUserByToken(token: String): UserDto
+
     fun createUser(userDto: UserDto): UserDto
 
     fun deleteUserById(id: Long)
