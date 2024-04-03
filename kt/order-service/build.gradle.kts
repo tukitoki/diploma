@@ -15,6 +15,7 @@ repositories {
 
 dependencies {
     api(libs.spring.boot.starter.web)
+    api(libs.spring.boot.starter.security)
 
     implementation(platform(libs.spring.cloud.bom))
     api(libs.spring.cloud.starter.eureka.client)
