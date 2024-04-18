@@ -1,6 +1,4 @@
 plugins {
-    id("kt.kotlin-application-conventions")
-
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.spring.dep.management)
     alias(libs.plugins.kotlin.spring)

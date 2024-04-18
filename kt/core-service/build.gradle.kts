@@ -1,11 +1,11 @@
-
 plugins {
-    id("kt.kotlin-application-conventions")
-
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.spring.dep.management)
     alias(libs.plugins.kotlin.spring)
 }
+
+group = "ru.vsu.cs.raspopov"
+version = "0.0.1"
 
 dependencies {
     implementation(libs.jetbrains.kotlin.gradle.plugin)
@@ -26,8 +26,6 @@ dependencies {
 
     implementation(project(":shared"))
 }
-
-version = "0.0.1"
 
 springBoot {
     buildInfo {

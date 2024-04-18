@@ -51,6 +51,8 @@ liquidbase-core = { module = "org.liquibase:liquibase-core", version.ref = "liqu
 org-apache-log4j-kotlin = { module = "org.apache.logging.log4j:log4j-api-kotlin", version.ref = "org-apache-log4j-kotlin-version" }
 
 [plugins]
+jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot-version" }
 spring-dep-management = { id = "io.spring.dependency-management", version.ref = "spring-dep-management-version" }
 

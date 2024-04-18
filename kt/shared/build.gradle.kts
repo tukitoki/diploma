@@ -1,5 +1,4 @@
 plugins {
-    id("kt.kotlin-library-conventions")
 }
 
 group = "ru.vsu.cs.raspopov"
