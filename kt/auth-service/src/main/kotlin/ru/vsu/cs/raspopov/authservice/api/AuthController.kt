@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import ru.vsu.cs.raspopov.authservice.model.dto.JwtTokens
-import ru.vsu.cs.raspopov.authservice.model.dto.UserAuthRequest
+import ru.vsu.cs.raspopov.authservice.model.dto.request.UserAuthRequest
 import ru.vsu.cs.raspopov.authservice.service.IAuthService
 
 @RestController

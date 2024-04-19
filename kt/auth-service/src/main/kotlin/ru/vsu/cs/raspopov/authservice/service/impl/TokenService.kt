@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service
 import ru.vsu.cs.raspopov.authservice.exception.ExceptionCode
 import ru.vsu.cs.raspopov.authservice.exception.GeneralException
 import ru.vsu.cs.raspopov.authservice.model.dto.JwtTokens
-import ru.vsu.cs.raspopov.authservice.model.dto.TokenParseResponse
-import ru.vsu.cs.raspopov.authservice.model.dto.TokenValidationOutput
+import ru.vsu.cs.raspopov.authservice.model.dto.response.TokenParseResponse
+import ru.vsu.cs.raspopov.authservice.model.dto.response.TokenValidationResponse
 import ru.vsu.cs.raspopov.authservice.model.redis.AccessToken
 import ru.vsu.cs.raspopov.authservice.model.redis.RefreshToken
 import ru.vsu.cs.raspopov.authservice.model.redis.Token
@@ -63,7 +63,7 @@ class TokenService(
         return token
     }
 
-    override fun validateSerializedAccessToken(serializedAccessToken: String): TokenValidationOutput {
+    override fun validateSerializedAccessToken(serializedAccessToken: String): TokenValidationResponse {
         val token = tokenUtilStore.accessTokenStringDeserializer.invoke(serializedAccessToken).getOrElse {
             throw GeneralException(ExceptionCode.TOKEN_CANT_BE_PARSED)
         } ?: throw GeneralException("Token is invalid")
@@ -71,7 +71,7 @@ class TokenService(
         if (token.isExpired())
             throw GeneralException(ExceptionCode.TOKEN_EXPIRED)
 
-        return TokenValidationOutput(true)
+        return TokenValidationResponse(true)
     }
 
     override fun refreshToken(serializedRefreshToken: Token): JwtTokens {

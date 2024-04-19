@@ -4,7 +4,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import ru.vsu.cs.raspopov.authservice.model.dto.JwtTokens
-import ru.vsu.cs.raspopov.authservice.model.dto.UserAuthRequest
+import ru.vsu.cs.raspopov.authservice.model.dto.request.UserAuthRequest
 import ru.vsu.cs.raspopov.authservice.security.AppAuthenticationManager
 import ru.vsu.cs.raspopov.authservice.service.IAuthService
 

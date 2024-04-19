@@ -1,4 +1,4 @@
-package ru.vsu.cs.raspopov.authservice.model.dto
+package ru.vsu.cs.raspopov.authservice.model.dto.request
 
 data class UserAuthRequest(
     val username: String,

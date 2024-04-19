@@ -7,7 +7,7 @@ import org.springframework.security.core.AuthenticationException
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.stereotype.Component
 import ru.vsu.cs.raspopov.authservice.client.UserOpenFeignClient
-import ru.vsu.cs.raspopov.authservice.model.dto.UserAuthRequest
+import ru.vsu.cs.raspopov.authservice.model.dto.request.UserAuthRequest
 import ru.vsu.cs.raspopov.authservice.model.redis.Token
 import java.time.Instant
 
