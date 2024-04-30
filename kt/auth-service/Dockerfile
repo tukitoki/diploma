@@ -3,7 +3,7 @@ ARG VERSION=1.0.0
 ARG JARNAME=${PROJ_NAME}-${VERSION}.jar
 
 FROM gradle:8.5 AS build
-COPY --chown=gradle:gradle ../core-service /home/gradle/src
+COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
 RUN gradle --no-daemon build -x test
 

@@ -8,8 +8,6 @@ group = "ru.vsu.cs.raspopov"
 version = "0.0.1"
 
 dependencies {
-    implementation(libs.jetbrains.kotlin.gradle.plugin)
-
     api(libs.spring.boot.starter.web)
     api(libs.spring.boot.starter.validation)
     api(libs.spring.security.crypto)

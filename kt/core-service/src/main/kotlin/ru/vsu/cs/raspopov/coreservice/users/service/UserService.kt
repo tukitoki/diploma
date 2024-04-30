@@ -1,5 +1,6 @@
 package ru.vsu.cs.raspopov.coreservice.users.service
 
+import ru.vsu.cs.raspopov.coreservice.users.model.dto.AuthByNumberRequest
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UpdatePasswordRequest
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UserAuthRequest
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UserDto
@@ -22,4 +23,6 @@ interface UserService {
     fun changeUserStatusById(id: Long, status: UserStatus): UserDto
 
     fun authentication(request: UserAuthRequest): UserDto
+
+    fun authenticationByNumber(request: AuthByNumberRequest): UserDto
 }

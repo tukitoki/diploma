@@ -3,14 +3,12 @@ package ru.vsu.cs.raspopov.authservice.security.token.serializer
 import com.nimbusds.jose.*
 import com.nimbusds.jose.crypto.DirectEncrypter
 import com.nimbusds.jose.crypto.MACSigner
-import com.nimbusds.jose.jwk.OctetSequenceKey
 import com.nimbusds.jwt.EncryptedJWT
 import com.nimbusds.jwt.JWTClaimsSet
 import com.nimbusds.jwt.SignedJWT
 import org.apache.logging.log4j.kotlin.Logging
-import ru.vsu.cs.raspopov.authservice.model.redis.AccessToken
-import ru.vsu.cs.raspopov.authservice.model.redis.RefreshToken
-import ru.vsu.cs.raspopov.authservice.security.SecurityProperties
+import ru.vsu.cs.raspopov.authservice.tokens.model.entity.AccessToken
+import ru.vsu.cs.raspopov.authservice.tokens.model.entity.RefreshToken
 import java.util.*
 
 class JweRefreshTokenStringSerializer(

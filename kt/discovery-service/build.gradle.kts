@@ -6,8 +6,6 @@ plugins {
 version = "1.00"
 
 dependencies {
-    implementation(libs.jetbrains.kotlin.gradle.plugin)
-
     implementation(platform(libs.spring.cloud.bom))
     api(libs.spring.cloud.starter.eureka.server)
 

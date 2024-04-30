@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.ok
 import org.springframework.web.bind.annotation.*
 import ru.vsu.cs.raspopov.coreservice.users.api.docs.UserControllerAPI
+import ru.vsu.cs.raspopov.coreservice.users.model.dto.AuthByNumberRequest
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UpdatePasswordRequest
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UserAuthRequest
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UserDto
@@ -80,5 +81,13 @@ class UserController(
     ): ResponseEntity<UserDto> {
 
         return ok(userService.authentication(request))
+    }
+
+    @PostMapping("/auth-by-number")
+    override fun authenticationByNumber(
+        @RequestBody request: AuthByNumberRequest,
+    ): ResponseEntity<UserDto> {
+
+        return ok(userService.authenticationByNumber(request))
     }
 }

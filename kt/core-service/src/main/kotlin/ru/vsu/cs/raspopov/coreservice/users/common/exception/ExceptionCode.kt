@@ -7,5 +7,6 @@ enum class ExceptionCode(
     val status: HttpStatus,
 ) {
 
-    AUTH_FAILED("Invalid username or password", HttpStatus.BAD_REQUEST)
+    AUTH_FAILED("Invalid username or password", HttpStatus.BAD_REQUEST),
+    AUTH_BY_NUMBER_FAILED("Incorrect phone", HttpStatus.BAD_REQUEST),
 }

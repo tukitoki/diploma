@@ -1,13 +1,12 @@
 package ru.vsu.cs.raspopov.authservice.cache.model.dto.response
 
 import ru.vsu.cs.raspopov.authservice.cache.model.OtpCodeEntity
-import java.util.*
 
 data class OtpCodeResponse(
-    val id: UUID,
+    val id: String,
     val code: String,
 ) {
     constructor(
         optCodeEntity: OtpCodeEntity,
-    ) : this(optCodeEntity.uuid, optCodeEntity.otpCode)
+    ) : this(optCodeEntity.id, optCodeEntity.otpCode)
 }

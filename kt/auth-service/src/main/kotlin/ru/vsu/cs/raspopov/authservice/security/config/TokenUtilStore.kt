@@ -7,8 +7,8 @@ import com.nimbusds.jose.crypto.MACVerifier
 import com.nimbusds.jose.jwk.OctetSequenceKey
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
-import ru.vsu.cs.raspopov.authservice.model.redis.AccessToken
-import ru.vsu.cs.raspopov.authservice.model.redis.RefreshToken
+import ru.vsu.cs.raspopov.authservice.tokens.model.entity.AccessToken
+import ru.vsu.cs.raspopov.authservice.tokens.model.entity.RefreshToken
 import ru.vsu.cs.raspopov.authservice.security.SecurityProperties
 import ru.vsu.cs.raspopov.authservice.security.token.deserializer.AbstractTokenStringDeserializer
 import ru.vsu.cs.raspopov.authservice.security.token.deserializer.AccessTokenStringDeserializer

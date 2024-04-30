@@ -4,10 +4,9 @@ plugins {
     alias(libs.plugins.kotlin.spring)
 }
 
-dependencies {
-    implementation(libs.jetbrains.kotlin.gradle.plugin)
-    implementation(libs.jetbrains.kotlin.reflect)
+version = "0.0.1"
 
+dependencies {
     api(libs.spring.boot.starter.web)
     api(libs.spring.boot.starter.validation)
     api(libs.spring.boot.starter.security)
@@ -27,4 +26,6 @@ dependencies {
     api(libs.org.apache.log4j.kotlin)
 }
 
-version = "0.0.1"
+tasks.bootBuildImage {
+
+}

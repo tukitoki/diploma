@@ -5,8 +5,10 @@ import org.jetbrains.exposed.sql.SqlExpressionBuilder.neq
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import ru.vsu.cs.raspopov.coreservice.users.common.exception.ExceptionCode.AUTH_BY_NUMBER_FAILED
 import ru.vsu.cs.raspopov.coreservice.users.common.exception.ExceptionCode.AUTH_FAILED
 import ru.vsu.cs.raspopov.coreservice.users.common.exception.GeneralException
+import ru.vsu.cs.raspopov.coreservice.users.model.dto.AuthByNumberRequest
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UpdatePasswordRequest
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UserAuthRequest
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UserDto
@@ -57,6 +59,12 @@ class UserServiceImpl(
 
         return user.toDto()
     }
+
+    override fun authenticationByNumber(
+        request: AuthByNumberRequest,
+    ) = User.find { Users.phone eq request.phoneNumber }
+        .singleOrNull()
+        ?.toDto() ?: throw GeneralException(AUTH_BY_NUMBER_FAILED)
 
     override fun deleteUserById(id: Long) {
         val deletedUser = throwableFindEntityById(id)
@@ -112,16 +120,19 @@ class UserServiceImpl(
                     .eq(userDto.username)
                     .and(neqUserId)
             }.exists() -> "username"
+
             User.find {
                 Users.email
                     .eq(userDto.email)
                     .and(neqUserId)
             }.exists() -> "email"
+
             User.find {
                 Users.phone
                     .eq(userDto.phone)
                     .and(neqUserId)
             }.exists() -> "phone number"
+
             else -> null
         }
 

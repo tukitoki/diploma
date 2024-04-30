@@ -1,15 +1,13 @@
 server:
   port: 9200
 
-#spring:
-#  data:
-#    redis:
-#      port: 9210
-#      password: password
-#      host: localhost
 spring:
   application:
     name: auth-service
+  data:
+    redis:
+      port: 6379
+      host: 'localhost'
 #  config:
 #    import: optional:configserver:http://localhost:8081
 eureka:
@@ -22,3 +20,6 @@ jwt-security:
   access-tkn-ttl: 1
   refresh-secret-key: '{"kty":"oct","k":"956PBFst1FguLr5irJD-aQ"}'
   refresh-tkn-ttl: 1
+
+service:
+  mock: true

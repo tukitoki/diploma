@@ -1,7 +1,6 @@
 package ru.vsu.cs.raspopov.coreservice.users.model.dto
 
 import ru.vsu.cs.raspopov.coreservice.users.model.entity.User
-import ru.vsu.cs.raspopov.coreservice.users.model.enums.Authority
 import ru.vsu.cs.raspopov.coreservice.users.model.enums.Role
 import ru.vsu.cs.raspopov.coreservice.users.model.enums.UserStatus
 
@@ -9,8 +8,8 @@ data class UserDto(
     val userId: Long? = null,
     val username: String,
     val password: String,
-    val email: String,
-    val phone: String? = null,
+    val email: String? = null,
+    val phone: String,
     val status: UserStatus,
     val role: Role,
     val authorities: List<String>,

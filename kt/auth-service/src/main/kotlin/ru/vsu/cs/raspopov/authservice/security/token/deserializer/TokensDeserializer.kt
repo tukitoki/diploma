@@ -5,8 +5,8 @@ import com.nimbusds.jose.JWSVerifier
 import com.nimbusds.jwt.EncryptedJWT
 import com.nimbusds.jwt.SignedJWT
 import org.apache.logging.log4j.kotlin.Logging
-import ru.vsu.cs.raspopov.authservice.model.redis.AccessToken
-import ru.vsu.cs.raspopov.authservice.model.redis.RefreshToken
+import ru.vsu.cs.raspopov.authservice.tokens.model.entity.AccessToken
+import ru.vsu.cs.raspopov.authservice.tokens.model.entity.RefreshToken
 import java.util.*
 
 class RefreshTokenStringDeserializer(

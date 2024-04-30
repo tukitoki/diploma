@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletResponse
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter
 import ru.vsu.cs.raspopov.authservice.security.SecurityProperties
-import ru.vsu.cs.raspopov.authservice.service.impl.TokenService
+import ru.vsu.cs.raspopov.authservice.tokens.service.impl.TokenService
 import java.io.IOException
 
 class JWTAuthenticationFilter(

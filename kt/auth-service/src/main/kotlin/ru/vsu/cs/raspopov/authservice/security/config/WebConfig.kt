@@ -37,6 +37,8 @@ class WebConfig(
             .authorizeHttpRequests {
                 it.requestMatchers(LOGIN_PATH).permitAll()
                     .requestMatchers(REGISTER).permitAll()
+                    .requestMatchers(AUTH_BY_OTP_PATH).permitAll()
+                    .requestMatchers("/request-code/send").permitAll()
                     .requestMatchers(VALIDATE_ACCESS_TOKEN).permitAll()
                     .anyRequest().authenticated()
             }

@@ -1,9 +1,8 @@
 package ru.vsu.cs.raspopov.authservice.security.token.factory
 
 import org.springframework.security.core.Authentication
-import ru.vsu.cs.raspopov.authservice.model.redis.AccessToken
-import ru.vsu.cs.raspopov.authservice.model.redis.RefreshToken
-import ru.vsu.cs.raspopov.authservice.security.SecurityProperties
+import ru.vsu.cs.raspopov.authservice.tokens.model.entity.AccessToken
+import ru.vsu.cs.raspopov.authservice.tokens.model.entity.RefreshToken
 import java.time.Duration
 import java.time.Instant
 import java.util.UUID

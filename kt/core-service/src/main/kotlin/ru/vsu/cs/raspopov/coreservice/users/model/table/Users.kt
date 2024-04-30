@@ -8,8 +8,8 @@ object Users : TimeAtLongIdTable() {
 
     val username = varchar("username", 50)
     val password = varchar("password", 100)
-    val email = varchar("email", 50)
-    val phone = varchar("phone", 14).nullable()
+    val email = varchar("email", 50).nullable()
+    val phone = varchar("phone", 14)
     val status = enumerationByName("status", 20, UserStatus::class).default(UserStatus.UNBLOCKED)
     val role = enumerationByName("role", 20, Role::class)
 }
