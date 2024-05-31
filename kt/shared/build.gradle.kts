@@ -1,18 +1,23 @@
 plugins {
+    alias(libs.plugins.jvm)
+    `java-library`
 }
-
-group = "ru.vsu.cs.raspopov"
-version = "0.0.1"
 
 repositories {
     mavenCentral()
 }
 
+group = "ru.vsu.cs.raspopov"
+version = "0.0.1"
+
 dependencies {
-    api(libs.exposed.starter)
-    api(libs.exposed.java.time)
+    implementation(libs.exposed.core)
+    implementation(libs.exposed.dao)
+    implementation(libs.exposed.java.time)
 }
 
-kotlin {
-    jvmToolchain(21)
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }

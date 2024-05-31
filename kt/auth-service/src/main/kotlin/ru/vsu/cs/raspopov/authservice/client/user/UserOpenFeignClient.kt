@@ -14,6 +14,6 @@ interface UserOpenFeignClient {
     @RequestMapping(method = [RequestMethod.POST], value = ["/api/user/auth"])
     fun authenticateUser(request: AuthRequest): UserDto
 
-    @RequestMapping(method = [RequestMethod.POST], value = ["/api/user/auth-by-number"])
+    @RequestMapping(method = [RequestMethod.POST], value = ["/api/user/auth/by-number"])
     fun authenticateUserByNumber(request: AuthByNumberRequest): UserDto
 }

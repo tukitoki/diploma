@@ -1,7 +1,9 @@
 plugins {
+    alias(libs.plugins.jvm)
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.spring.dep.management)
     alias(libs.plugins.kotlin.spring)
+    application
 }
 
 group = "ru.vsu.cs.raspopov"
@@ -24,12 +26,15 @@ dependencies {
 
     api(libs.postgesql.driver)
 
-    implementation(project(":shared"))
+    api(libs.jetbrains.kotlin.gradle.plugin)
+    api(libs.jetbrains.kotlin.reflect)
+    api(libs.jackson.kotlin.module)
+
+    implementation("ru.vsu.cs.raspopov:shared")
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
-kotlin {
-    jvmToolchain(21)
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }

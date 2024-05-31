@@ -1,0 +1,19 @@
+server:
+  port: 9220
+
+spring:
+  application:
+    name: customer-service
+  datasource:
+    url: jdbc:postgresql://localhost:65434/customer-service
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8081/eureka}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui-custom.html

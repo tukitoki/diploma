@@ -1,10 +1,15 @@
-
 plugins {
+    alias(libs.plugins.jvm)
     alias(libs.plugins.spring.dep.management)
     alias(libs.plugins.kotlin.spring)
+    application
 }
 
 version = "1.00"
+
+repositories {
+    mavenCentral()
+}
 
 dependencies {
     implementation(platform(libs.spring.cloud.bom))
