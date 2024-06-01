@@ -5,6 +5,9 @@ import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFac
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
+import ru.vsu.cs.raspopov.token.TokenValidationResponse
+import ru.vsu.cs.raspopov.user.dto.UserDto
+import ru.vsu.cs.raspopov.user.dto.request.AuthByNumberRequest
 
 @Component
 class AuthenticationFilter(
@@ -24,17 +27,35 @@ class AuthenticationFilter(
 
             webClientBuilder.build()
                 .post()
-                .uri("http://auth-service/api/token/validate")
+                .uri("lb://auth-service/api/token/validate")
                 .headers { it.set(HttpHeaders.AUTHORIZATION, token) }
                 .retrieve()
-                .toBodilessEntity()
+                .bodyToMono(TokenValidationResponse::class.java)
                 .doOnError {
                     print(it)
-                    print(it)
                 }
-                .flatMap { chain.filter(exchange) }
+                .flatMap {
+                    getUserByPhoneNumber(it.subject!!).flatMap { user ->
+                        exchange.request
+                            .mutate()
+                            .headers { header ->
+                                header.set(USER_ID_PREFIX, user.id.toString())
+                            }
+
+                        chain.filter(exchange)
+                    }
+                }
         }
     }
+
+    private fun getUserByPhoneNumber(
+        subject: String,
+    ) = webClientBuilder.build()
+        .post()
+        .uri("lb://user-service/api/user/auth/by-number")
+        .bodyValue(AuthByNumberRequest(subject))
+        .retrieve()
+        .bodyToMono(UserDto::class.java)
 
     class Config {
 
@@ -42,5 +63,6 @@ class AuthenticationFilter(
 
     companion object {
         const val AUTH_PREFIX = "Bearer "
+        const val USER_ID_PREFIX = "x-auth-user-id"
     }
 }

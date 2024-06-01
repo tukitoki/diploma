@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.jetbrains.kotlin.ir.backend.js.compile
 
 plugins {
     alias(libs.plugins.jvm)
@@ -27,6 +26,8 @@ dependencies {
 
     api(libs.exposed.starter)
     api(libs.exposed.java.time)
+
+    api(libs.jackson.kotlin.module)
 
     api(libs.postgesql.driver)
 

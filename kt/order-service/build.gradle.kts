@@ -14,6 +14,8 @@ repositories {
 }
 
 dependencies {
+    api(libs.jackson.kotlin.module)
+
     api(libs.spring.boot.starter.web)
     api(libs.spring.boot.starter.security)
 

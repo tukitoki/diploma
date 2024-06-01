@@ -26,6 +26,8 @@ dependencies {
     implementation(libs.spring.cloud.starter.eureka.client)
     implementation(libs.spring.cloud.starter.openfeign)
 
+    api(libs.jackson.kotlin.module)
+
     implementation(libs.redis.client.jedis)
 
     val jwtHoseVersion = "9.37.3"
@@ -36,6 +38,8 @@ dependencies {
     implementation(libs.org.apache.log4j.kotlin)
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+
+    implementation("ru.vsu.cs.raspopov:shared")
 }
 
 tasks {

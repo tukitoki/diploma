@@ -1,4 +1,4 @@
-package ru.vsu.cs.raspopov.user.dto.request
+package ru.vsu.cs.raspopov.user.dto
 
 data class UserDto(
     // TODO: implement

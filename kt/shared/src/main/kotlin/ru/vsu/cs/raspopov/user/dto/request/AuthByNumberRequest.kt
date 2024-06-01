@@ -1,4 +1,4 @@
-package ru.vsu.cs.raspopov.coreservice.users.model.dto
+package ru.vsu.cs.raspopov.user.dto.request
 
 data class AuthByNumberRequest(
     val phoneNumber: String,

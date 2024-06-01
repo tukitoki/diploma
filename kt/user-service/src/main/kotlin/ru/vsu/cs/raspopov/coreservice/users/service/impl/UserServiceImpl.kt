@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import ru.vsu.cs.raspopov.coreservice.users.common.exception.ExceptionCode.*
 import ru.vsu.cs.raspopov.coreservice.users.common.exception.GeneralException
-import ru.vsu.cs.raspopov.coreservice.users.model.dto.AuthByNumberRequest
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UpdatePasswordRequest
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UserAuthRequest
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UserDto
@@ -16,6 +15,7 @@ import ru.vsu.cs.raspopov.coreservice.users.model.enums.UserStatus
 import ru.vsu.cs.raspopov.coreservice.users.model.table.Users
 import ru.vsu.cs.raspopov.coreservice.users.service.UserService
 import ru.vsu.cs.raspopov.exposed.exists
+import ru.vsu.cs.raspopov.user.dto.request.AuthByNumberRequest
 import java.time.LocalDateTime
 
 @Transactional
@@ -28,6 +28,7 @@ class UserServiceImpl(
     override fun getUserById(id: Long) = throwableFindEntityById(id).toDto()
 
     override fun getUserByToken(token: String): UserDto {
+
         TODO("Not yet implemented")
     }
 

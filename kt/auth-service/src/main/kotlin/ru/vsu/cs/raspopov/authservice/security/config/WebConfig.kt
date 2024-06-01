@@ -40,7 +40,7 @@ class WebConfig(
                     .requestMatchers(AUTH_BY_OTP_PATH).permitAll()
                     .requestMatchers("/request-code/send").permitAll()
                     .requestMatchers(VALIDATE_ACCESS_TOKEN).permitAll()
-                    .anyRequest().authenticated()
+                    .anyRequest().permitAll()
             }
             .addFilterAfter(
                 AuthenticationFilter(

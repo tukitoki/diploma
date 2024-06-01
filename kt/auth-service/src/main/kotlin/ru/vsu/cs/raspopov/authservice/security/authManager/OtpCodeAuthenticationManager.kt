@@ -21,7 +21,7 @@ class OtpCodeAuthenticationManager(
         )
 
         return UsernamePasswordAuthenticationToken(
-            user.username,
+            user.phone,
             user.password,
             user.authorities.map { SimpleGrantedAuthority(it) }
         )

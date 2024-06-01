@@ -5,12 +5,12 @@ import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.ok
 import org.springframework.web.bind.annotation.*
 import ru.vsu.cs.raspopov.coreservice.users.api.docs.UserControllerAPI
-import ru.vsu.cs.raspopov.coreservice.users.model.dto.AuthByNumberRequest
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UpdatePasswordRequest
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UserAuthRequest
 import ru.vsu.cs.raspopov.coreservice.users.model.dto.UserDto
 import ru.vsu.cs.raspopov.coreservice.users.model.enums.UserStatus
 import ru.vsu.cs.raspopov.coreservice.users.service.UserService
+import ru.vsu.cs.raspopov.user.dto.request.AuthByNumberRequest
 
 @RequestMapping("/api/user")
 @RestController

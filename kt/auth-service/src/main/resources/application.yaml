@@ -17,9 +17,9 @@ eureka:
 
 jwt-security:
   access-secret-key: 'hi7S5RX5ZRZooHA0RKGctZ-KtR9FoESgCnH-3BNg5XI'
-  access-tkn-ttl: 1
+  access-tkn-ttl: 1000000
   refresh-secret-key: '{"kty":"oct","k":"956PBFst1FguLr5irJD-aQ"}'
-  refresh-tkn-ttl: 1
+  refresh-tkn-ttl: 1000000
 
 service:
   mock: true

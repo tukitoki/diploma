@@ -6,12 +6,12 @@ import ru.vsu.cs.raspopov.authservice.exception.ExceptionCode
 import ru.vsu.cs.raspopov.authservice.exception.GeneralException
 import ru.vsu.cs.raspopov.authservice.tokens.model.dto.JwtTokens
 import ru.vsu.cs.raspopov.authservice.tokens.model.dto.response.TokenParseResponse
-import ru.vsu.cs.raspopov.authservice.tokens.model.dto.response.TokenValidationResponse
 import ru.vsu.cs.raspopov.authservice.tokens.model.entity.AccessToken
 import ru.vsu.cs.raspopov.authservice.tokens.model.entity.RefreshToken
 import ru.vsu.cs.raspopov.authservice.tokens.model.entity.Token
 import ru.vsu.cs.raspopov.authservice.security.config.TokenUtilStore
 import ru.vsu.cs.raspopov.authservice.tokens.service.ITokenService
+import ru.vsu.cs.raspopov.token.TokenValidationResponse
 
 @Service
 class TokenService(
@@ -71,7 +71,7 @@ class TokenService(
         if (token.isExpired())
             throw GeneralException(ExceptionCode.TOKEN_EXPIRED)
 
-        return TokenValidationResponse(true)
+        return TokenValidationResponse(true, token.subject)
     }
 
     override fun refreshToken(serializedRefreshToken: Token): JwtTokens {

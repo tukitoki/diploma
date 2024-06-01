@@ -11,8 +11,8 @@ import ru.vsu.cs.raspopov.authservice.api.REFRESH_JWT_TOKEN
 import ru.vsu.cs.raspopov.authservice.api.VALIDATE_ACCESS_TOKEN
 import ru.vsu.cs.raspopov.authservice.tokens.model.dto.JwtTokens
 import ru.vsu.cs.raspopov.authservice.tokens.model.dto.response.TokenParseResponse
-import ru.vsu.cs.raspopov.authservice.tokens.model.dto.response.TokenValidationResponse
 import ru.vsu.cs.raspopov.authservice.tokens.service.impl.TokenService
+import ru.vsu.cs.raspopov.token.TokenValidationResponse
 
 @RequestMapping("/api/token")
 @RestController

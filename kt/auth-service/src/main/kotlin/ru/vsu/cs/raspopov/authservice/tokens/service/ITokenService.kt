@@ -3,10 +3,10 @@ package ru.vsu.cs.raspopov.authservice.tokens.service
 import org.springframework.security.core.Authentication
 import ru.vsu.cs.raspopov.authservice.tokens.model.dto.JwtTokens
 import ru.vsu.cs.raspopov.authservice.tokens.model.dto.response.TokenParseResponse
-import ru.vsu.cs.raspopov.authservice.tokens.model.dto.response.TokenValidationResponse
 import ru.vsu.cs.raspopov.authservice.tokens.model.entity.AccessToken
 import ru.vsu.cs.raspopov.authservice.tokens.model.entity.RefreshToken
 import ru.vsu.cs.raspopov.authservice.tokens.model.entity.Token
+import ru.vsu.cs.raspopov.token.TokenValidationResponse
 
 interface ITokenService {
 
