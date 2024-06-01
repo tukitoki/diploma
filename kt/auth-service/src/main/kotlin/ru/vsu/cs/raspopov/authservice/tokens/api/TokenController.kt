@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.ok
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestHeader
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import ru.vsu.cs.raspopov.authservice.api.REFRESH_JWT_TOKEN
 import ru.vsu.cs.raspopov.authservice.api.VALIDATE_ACCESS_TOKEN
@@ -13,6 +14,7 @@ import ru.vsu.cs.raspopov.authservice.tokens.model.dto.response.TokenParseRespon
 import ru.vsu.cs.raspopov.authservice.tokens.model.dto.response.TokenValidationResponse
 import ru.vsu.cs.raspopov.authservice.tokens.service.impl.TokenService
 
+@RequestMapping("/api/token")
 @RestController
 class TokenController(
     private val tokenService: TokenService,

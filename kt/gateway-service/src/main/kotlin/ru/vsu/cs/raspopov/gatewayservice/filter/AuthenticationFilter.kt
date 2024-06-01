@@ -24,7 +24,7 @@ class AuthenticationFilter(
 
             webClientBuilder.build()
                 .post()
-                .uri("http://auth-service/validate")
+                .uri("http://auth-service/api/token/validate")
                 .headers { it.set(HttpHeaders.AUTHORIZATION, token) }
                 .retrieve()
                 .toBodilessEntity()
@@ -33,7 +33,6 @@ class AuthenticationFilter(
                     print(it)
                 }
                 .flatMap { chain.filter(exchange) }
-
         }
     }
 
