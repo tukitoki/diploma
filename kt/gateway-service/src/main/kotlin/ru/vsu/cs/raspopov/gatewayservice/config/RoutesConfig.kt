@@ -11,9 +11,7 @@ import ru.vsu.cs.raspopov.gatewayservice.filter.AuthenticationFilter
 
 
 @Configuration
-class RoutesConfig(
-    private val webClientBuilder: WebClient.Builder,
-) {
+class RoutesConfig {
 
     @Bean
     fun routeLocator(
@@ -22,16 +20,21 @@ class RoutesConfig(
     ): RouteLocator {
 
         return builder.routes()
-            .route(
-                "user-service-auth"
-            ) { r: PredicateSpec ->
+            .route("user-service-auth") { r ->
                 r.path(
                     "/user-service/**"
-                ).filters { f: GatewayFilterSpec ->
+                ).filters { f ->
                     f.filter(authenticationFilter.apply { AuthenticationFilter.Config() })
                     f.rewritePath("/user-service/(?<segment>.*)", "/\${segment}")
                 }
                     .uri("lb://user-service")
+            }
+            .route("auth-service") { r ->
+                r.path("/auth-service/**")
+                    .filters { f ->
+                        f.rewritePath("/auth-service/(?<segment>.*)", "/\${segment}")
+                    }
+                    .uri("lb://auth-service")
             }
             .build()
     }
