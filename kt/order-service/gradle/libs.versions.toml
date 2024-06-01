@@ -7,6 +7,7 @@ spring-boot-version = "3.2.1"
 spring-dep-management-version = "1.1.4"
 spring-security-crypto-version = "6.2.1"
 spring-cloud-version = '2023.0.0'
+spring-kafka-version = "3.2.0"
 
 springdoc-openapi-version = "2.3.0"
 
@@ -26,9 +27,10 @@ jackson-kotlin-module = { module = "com.fasterxml.jackson.module:jackson-module-
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
 spring-boot-starter-web-flux = { module = "org.springframework.boot:spring-boot-starter-webflux" }
 spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
-spring-boot-starter-data-redis = { module = "org.springframework.boot:spring-boot-starter-data-redis" }
 spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security" }
 spring-security-crypto = { module = "org.springframework.security:spring-security-crypto" }
+
+springframework-kafka = { module = "org.springframework.kafka:spring-kafka", version.ref = "spring-kafka-version" }
 
 spring-cloud-bom = { module = "org.springframework.cloud:spring-cloud-dependencies", version.ref = "spring-cloud-version" }
 spring-cloud-starter-config = { module = "org.springframework.cloud:spring-cloud-starter-config" }
@@ -40,8 +42,6 @@ spring-cloud-starter-eureka-server = { module = "org.springframework.cloud:sprin
 
 springdoc-openapi-starter-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc-openapi-version" }
 springdoc-openapi-starter-webflux-ui = { module = "org.springdoc:springdoc-openapi-starter-webflux-ui", version.ref = "springdoc-openapi-version" }
-
-redis-client-jedis = { module = "redis.clients:jedis", version = "5.1.0" }
 
 exposed-starter = { module = "org.jetbrains.exposed:exposed-spring-boot-starter", version.ref = "exposed-version" }
 exposed-java-time = { module = "org.jetbrains.exposed:exposed-java-time", version.ref = "exposed-version" }

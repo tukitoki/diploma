@@ -19,6 +19,8 @@ dependencies {
     api(libs.spring.boot.starter.web)
     api(libs.spring.boot.starter.security)
 
+    api(libs.springframework.kafka)
+
     implementation(platform(libs.spring.cloud.bom))
     api(libs.spring.cloud.starter.eureka.client)
 
