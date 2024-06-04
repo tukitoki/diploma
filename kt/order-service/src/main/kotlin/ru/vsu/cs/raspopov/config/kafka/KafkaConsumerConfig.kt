@@ -2,21 +2,33 @@ package ru.vsu.cs.raspopov.config.kafka
 
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.common.serialization.StringDeserializer
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory
 import org.springframework.kafka.listener.CommonErrorHandler
+import org.springframework.kafka.listener.CommonLoggingErrorHandler
 import org.springframework.kafka.listener.ContainerProperties
 import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
 import org.springframework.kafka.support.serializer.JsonDeserializer
 import org.springframework.kafka.transaction.KafkaTransactionManager
+import ru.vsu.cs.raspopov.client.autoService.dto.AutoServiceResponse
 
 @Configuration
 class KafkaConsumerConfig(
-    // TODO: impl
-//    @Value("\${spring.kafka.bootstrap-servers}")
-    private val bootstrapServers: String = "",
+    @Value("\${spring.kafka.bootstrap-servers}")
+    private val bootstrapServers: String,
 ) {
+
+    @Bean
+    fun errorHandler() = CommonLoggingErrorHandler()
+
+    @Bean
+    fun autoRepairListenerFactory(
+        errorHandler: CommonErrorHandler,
+        kafkaTransactionManager: KafkaTransactionManager<String, AutoServiceResponse>,
+    ) = listenerFactory(AutoServiceResponse::class.java, errorHandler, kafkaTransactionManager)
 
     private fun <T> listenerFactory(
         clazz: Class<T>,
@@ -33,7 +45,7 @@ class KafkaConsumerConfig(
     }
 
     private fun <T> consumerFactory(
-        clazz: Class<T>
+        clazz: Class<T>,
     ) = DefaultKafkaConsumerFactory<String, T>(
         consumerConfig,
         StringDeserializer(),
@@ -51,8 +63,8 @@ class KafkaConsumerConfig(
         ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS to JsonDeserializer::class.java,
 
         JsonDeserializer.TRUSTED_PACKAGES to "*",
-        JsonDeserializer.TYPE_MAPPINGS to """
-            *    
-        """.trimIndent(),
+//        JsonDeserializer.TYPE_MAPPINGS to """
+//            *
+//        """.trimIndent(),
     )
 }

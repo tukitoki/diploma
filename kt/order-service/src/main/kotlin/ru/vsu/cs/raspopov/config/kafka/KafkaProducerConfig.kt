@@ -13,11 +13,10 @@ import java.util.*
 
 @Configuration
 class KafkaProducerConfig(
-    // TODO: impl
-//    @Value("\${spring.kafka.bootstrap-servers}")
-    private val bootstrapServers: String = "",
-//    @Value("\${spring.application.name}")
-    private val appName: String = "",
+    @Value("\${spring.kafka.bootstrap-servers}")
+    private val bootstrapServers: String,
+    @Value("\${spring.application.name}")
+    private val appName: String,
 ) {
 
     @Bean

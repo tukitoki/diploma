@@ -23,12 +23,14 @@ import ru.vsu.cs.raspopov.order.model.mapper.toTemporaryResponse
 import ru.vsu.cs.raspopov.order.model.table.Orders
 import ru.vsu.cs.raspopov.order.service.IOrderService
 import ru.vsu.cs.raspopov.customer.dto.CustomerDto
-import ru.vsu.cs.raspopov.order.model.entity.checkout
 import ru.vsu.cs.raspopov.order.model.entity.confirm
+import ru.vsu.cs.raspopov.order.service.impl.useCases.OrderCheckoutUseCase
 
 @Transactional
 @Service
-class OrderService : IOrderService {
+class OrderService(
+    private val checkoutUseCase: OrderCheckoutUseCase,
+) : IOrderService {
 
     override fun getAllOrders(
         customer: CustomerDto,
@@ -48,8 +50,7 @@ class OrderService : IOrderService {
     ): OrderResponse {
         val temporaryOrder = findThrowableTemporaryOrderById(customer.id)
 
-        temporaryOrder.checkout()
-        TODO("Not yet implemented")
+        return checkoutUseCase.invoke(request, temporaryOrder, customer)
     }
 
     override fun getTemporaryOrderState(
@@ -93,13 +94,13 @@ class OrderService : IOrderService {
         }
     }
 
-    private fun findThrowableOrderById(
+    internal fun findThrowableOrderById(
         id: Long,
         predicate: Op<Boolean>,
     ) = Orders.findThrowableById(id, GeneralException(ExceptionCode.ORDER_NOT_FOUND_BY_ID), predicate)
         .let { Order.wrapRow(it) }
 
-    private fun findThrowableTemporaryOrderById(
+    internal fun findThrowableTemporaryOrderById(
         customerId: Long,
     ) = Orders.findThrowableByPredicate(GeneralException(ExceptionCode.TEMPORARY_ORDER_NO_CONTENT)) {
         Orders.customerId.eq(customerId) and Orders.status.eq(OrderStatus.TEMPORARY)

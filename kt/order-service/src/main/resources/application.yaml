@@ -1,0 +1,22 @@
+spring:
+  liquibase:
+    enabled: true
+  application:
+    name: order-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5438/order
+    password: 'postgres'
+    username: 'postgres'
+    hikari:
+      maxLifeTime: '500000'
+
+  kafka:
+    bootstrap-servers: http://localhost:9092
+    listener:
+      ack-mode: manual_immediate
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8081/eureka}
