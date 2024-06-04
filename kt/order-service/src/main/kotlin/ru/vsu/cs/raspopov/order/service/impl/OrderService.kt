@@ -23,6 +23,8 @@ import ru.vsu.cs.raspopov.order.model.mapper.toTemporaryResponse
 import ru.vsu.cs.raspopov.order.model.table.Orders
 import ru.vsu.cs.raspopov.order.service.IOrderService
 import ru.vsu.cs.raspopov.customer.dto.CustomerDto
+import ru.vsu.cs.raspopov.order.model.entity.checkout
+import ru.vsu.cs.raspopov.order.model.entity.confirm
 
 @Transactional
 @Service
@@ -46,6 +48,7 @@ class OrderService : IOrderService {
     ): OrderResponse {
         val temporaryOrder = findThrowableTemporaryOrderById(customer.id)
 
+        temporaryOrder.checkout()
         TODO("Not yet implemented")
     }
 
@@ -71,10 +74,7 @@ class OrderService : IOrderService {
 
     override fun confirmOrder(customer: CustomerDto, id: Long) {
         val order = findThrowableOrderById(id, Orders.customerId.eq(customer.id))
-
-        if (order.status.isApproveStatus().not()) {
-            throw GeneralException("Order can't be approved due status", HttpStatus.BAD_REQUEST)
-        }
+        order.confirm()
 
         // TODO: implement work with schedule service
     }
