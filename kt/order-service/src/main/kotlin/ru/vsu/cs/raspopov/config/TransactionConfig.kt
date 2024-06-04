@@ -15,12 +15,12 @@ class TransactionConfig(
 
     @Primary
     @Bean(name = ["transactionManager"])
-    fun transactionManager(): PlatformTransactionManager = DataSourceTransactionManager().apply {
-        this.dataSource = DriverManagerDataSource()
-            .apply {
+    fun transactionManager(): PlatformTransactionManager =
+        DataSourceTransactionManager().apply {
+            DriverManagerDataSource().apply {
                 this.url = databaseProperties.url
                 this.password = databaseProperties.password
                 this.username = databaseProperties.username
             }
-    }
+        }
 }

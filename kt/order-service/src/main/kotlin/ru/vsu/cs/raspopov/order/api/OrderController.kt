@@ -20,6 +20,7 @@ import ru.vsu.cs.raspopov.order.model.dto.response.OrderResponse
 import ru.vsu.cs.raspopov.order.model.dto.response.OrderTemporaryResponse
 import ru.vsu.cs.raspopov.order.service.impl.OrderService
 import ru.vsu.cs.raspopov.customer.dto.CustomerDto
+import ru.vsu.cs.raspopov.order.model.dto.response.OrderListResponse
 
 @RequestMapping("/api/orders")
 @RestController
@@ -30,7 +31,7 @@ class OrderController(
     @GetMapping
     override fun getAllOrders(
         @AuthenticationPrincipal customer: CustomerDto,
-    ): ResponseEntity<Collection<OrderResponse>> {
+    ): ResponseEntity<Collection<OrderListResponse>> {
         return ok(orderService.getAllOrders(customer))
     }
 
@@ -83,12 +84,11 @@ class OrderController(
         return ok(orderService.confirmOrder(customer, id))
     }
 
-    @PatchMapping("/{id}/cancel")
+    @PatchMapping("/cancel")
     override fun cancelOrder(
         @AuthenticationPrincipal customer: CustomerDto,
-        @PathVariable id: Long,
         @RequestBody request: OrderCancelRequest,
     ): ResponseEntity<Unit> {
-        return ok(orderService.cancelOrder(customer, id, request))
+        return ok(orderService.cancelOrder(customer, request))
     }
 }

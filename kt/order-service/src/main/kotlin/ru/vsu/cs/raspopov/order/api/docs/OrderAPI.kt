@@ -11,6 +11,7 @@ import ru.vsu.cs.raspopov.order.model.dto.request.OrderUpdateRequest
 import ru.vsu.cs.raspopov.order.model.dto.response.OrderResponse
 import ru.vsu.cs.raspopov.order.model.dto.response.OrderTemporaryResponse
 import ru.vsu.cs.raspopov.customer.dto.CustomerDto
+import ru.vsu.cs.raspopov.order.model.dto.response.OrderListResponse
 
 @Tag(name = "Order API", description = "Order API для работы с заказами")
 interface OrderAPI {
@@ -18,7 +19,7 @@ interface OrderAPI {
     @Operation(summary = "Получение всех заказов пользователя")
     fun getAllOrders(
         @Parameter(hidden = true) customer: CustomerDto,
-    ): ResponseEntity<Collection<OrderResponse>>
+    ): ResponseEntity<Collection<OrderListResponse>>
 
     @Operation(summary = "Получение заказа по id")
     fun getOrderById(
@@ -58,7 +59,6 @@ interface OrderAPI {
     @Operation(summary = "Отменить заказ")
     fun cancelOrder(
         @Parameter(hidden = true) customer: CustomerDto,
-        id: Long,
         request: OrderCancelRequest,
     ): ResponseEntity<Unit>
 

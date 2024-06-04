@@ -7,10 +7,11 @@ import ru.vsu.cs.raspopov.order.model.dto.request.OrderUpdateRequest
 import ru.vsu.cs.raspopov.order.model.dto.response.OrderResponse
 import ru.vsu.cs.raspopov.order.model.dto.response.OrderTemporaryResponse
 import ru.vsu.cs.raspopov.customer.dto.CustomerDto
+import ru.vsu.cs.raspopov.order.model.dto.response.OrderListResponse
 
 interface IOrderService {
 
-    fun getAllOrders(customer: CustomerDto): Collection<OrderResponse>
+    fun getAllOrders(customer: CustomerDto): Collection<OrderListResponse>
 
     fun getOrderById(customer: CustomerDto, id: Long): OrderResponse
 
@@ -24,6 +25,6 @@ interface IOrderService {
 
     fun confirmOrder(customer: CustomerDto, id: Long)
 
-    fun cancelOrder(customer: CustomerDto, id: Long, request: OrderCancelRequest)
+    fun cancelOrder(customer: CustomerDto, request: OrderCancelRequest)
 
 }
