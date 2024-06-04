@@ -29,6 +29,7 @@ dependencies {
     api(libs.exposed.starter)
 
     api(libs.postgesql.driver)
+    api(libs.liquidbase.core)
 
     api(libs.jetbrains.kotlin.gradle.plugin)
     api(libs.jetbrains.kotlin.reflect)
