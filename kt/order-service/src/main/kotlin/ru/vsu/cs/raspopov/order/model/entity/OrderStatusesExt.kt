@@ -29,3 +29,11 @@ fun Order.updateAfterCheckout(request: OrderUpdateRequest) {
     request.serviceId?.let { this.carServiceId = it }
     this.status = OrderStatus.PENDING
 }
+
+fun Order.cancel() {
+    if (this.status.isCancellableStatus().not()) {
+        throw GeneralException("Order can't be cancelled due status")
+    }
+
+    this.status = OrderStatus.CANCELED
+}
