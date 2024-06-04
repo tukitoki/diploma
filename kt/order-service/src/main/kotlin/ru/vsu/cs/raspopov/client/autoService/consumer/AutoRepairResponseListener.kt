@@ -4,21 +4,28 @@ import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.support.Acknowledgment
 import org.springframework.stereotype.Component
 import ru.vsu.cs.raspopov.client.autoService.dto.AutoServiceResponse
-import ru.vsu.cs.raspopov.config.kafka.SAGA_AUTO_SERVICE_PRODUCE_TOPIC
+import ru.vsu.cs.raspopov.client.autoService.dto.PerformOperation
+import ru.vsu.cs.raspopov.config.kafka.SAGA_ORDER_LISTEN_TOPIC
 import ru.vsu.cs.raspopov.order.service.impl.useCases.OrderCheckoutResultUseCase
+import ru.vsu.cs.raspopov.order.service.impl.useCases.OrderUpdateResultUseCase
 
 @Component
 class AutoRepairResponseListener(
     private val checkoutResultUseCase: OrderCheckoutResultUseCase,
+    private val updateResultUseCase: OrderUpdateResultUseCase,
 ) {
 
     @KafkaListener(
         groupId = "order-group",
-        topics = [SAGA_AUTO_SERVICE_PRODUCE_TOPIC],
+        topics = [SAGA_ORDER_LISTEN_TOPIC],
         containerFactory = "autoRepairListenerFactory"
     )
     fun listenAutoRepairResponse(response: AutoServiceResponse, ack: Acknowledgment) {
-        checkoutResultUseCase.invoke(response)
+        when (response.performOperation) {
+            PerformOperation.CHECKOUT -> checkoutResultUseCase.invoke(response)
+
+            PerformOperation.UPDATE -> updateResultUseCase.invoke(response)
+        }
 
         ack.acknowledge()
 

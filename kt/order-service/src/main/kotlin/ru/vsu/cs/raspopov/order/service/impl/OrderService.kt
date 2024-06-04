@@ -15,10 +15,12 @@ import ru.vsu.cs.raspopov.order.model.dto.request.OrderCancelRequest
 import ru.vsu.cs.raspopov.order.model.dto.request.OrderCheckoutRequest
 import ru.vsu.cs.raspopov.order.model.dto.request.OrderCreateRequest
 import ru.vsu.cs.raspopov.order.model.dto.request.OrderTempUpdateRequest
+import ru.vsu.cs.raspopov.order.model.dto.request.OrderUpdateRequest
 import ru.vsu.cs.raspopov.order.model.dto.response.OrderResponse
 import ru.vsu.cs.raspopov.order.model.dto.response.OrderTemporaryResponse
 import ru.vsu.cs.raspopov.order.model.entity.Order
 import ru.vsu.cs.raspopov.order.model.entity.confirm
+import ru.vsu.cs.raspopov.order.model.entity.updateAfterCheckout
 import ru.vsu.cs.raspopov.order.model.enums.OrderStatus
 import ru.vsu.cs.raspopov.order.model.mapper.toListResponse
 import ru.vsu.cs.raspopov.order.model.mapper.toResponse
@@ -26,12 +28,15 @@ import ru.vsu.cs.raspopov.order.model.mapper.toTemporaryResponse
 import ru.vsu.cs.raspopov.order.model.table.Orders
 import ru.vsu.cs.raspopov.order.service.IOrderService
 import ru.vsu.cs.raspopov.order.service.impl.useCases.OrderCheckoutUseCase
+import ru.vsu.cs.raspopov.order.service.impl.useCases.OrderUpdateAfterCheckoutUseCase
 
 @Transactional
 @Service
 class OrderService(
     private val orderTemporaryService: OrderTemporaryService,
+
     private val checkoutUseCase: OrderCheckoutUseCase,
+    private val updateAfterCheckoutUseCase: OrderUpdateAfterCheckoutUseCase,
 ) : IOrderService {
 
     override fun getAllOrders(
@@ -74,6 +79,13 @@ class OrderService(
         if (order.status.isScheduled()) {
             // TODO: implement work with schedule service
         }
+    }
+
+    override fun updateOrder(customer: CustomerDto, request: OrderUpdateRequest): OrderResponse {
+        val order = findThrowableOrderById(request.orderId, Orders.customerId.eq(customer.id))
+        order.updateAfterCheckout(request)
+
+        return updateAfterCheckoutUseCase.invoke(request, order, customer)
     }
 
     internal fun findThrowableOrderById(

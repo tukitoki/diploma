@@ -19,4 +19,6 @@ enum class OrderStatus {
     fun isCanBeCheckout() = this == PENDING
 
     fun isScheduled() = this in listOf(APPROVED, CONFIRMED)
+
+    fun isCanBeUpdate() = this in listOf(TEMPORARY, CONFIRMED, PENDING, APPROVED)
 }

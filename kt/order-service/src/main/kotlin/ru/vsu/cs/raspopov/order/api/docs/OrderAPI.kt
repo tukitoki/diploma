@@ -47,5 +47,5 @@ interface OrderAPI {
     fun updateOrder(
         @Parameter(hidden = true) customer: CustomerDto,
         request: OrderUpdateRequest,
-    )
+    ): ResponseEntity<OrderResponse>
 }

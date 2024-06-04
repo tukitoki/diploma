@@ -65,7 +65,10 @@ class OrderController(
     }
 
     @PatchMapping
-    override fun updateOrder(customer: CustomerDto, request: OrderUpdateRequest) {
+    override fun updateOrder(
+        @AuthenticationPrincipal customer: CustomerDto,
+        @RequestBody request: OrderUpdateRequest,
+    ): ResponseEntity<OrderResponse> {
         TODO("Not yet implemented")
     }
 }

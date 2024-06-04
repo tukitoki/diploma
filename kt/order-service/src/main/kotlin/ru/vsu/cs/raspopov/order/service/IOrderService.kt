@@ -7,6 +7,7 @@ import ru.vsu.cs.raspopov.order.model.dto.request.OrderTempUpdateRequest
 import ru.vsu.cs.raspopov.order.model.dto.response.OrderResponse
 import ru.vsu.cs.raspopov.order.model.dto.response.OrderTemporaryResponse
 import ru.vsu.cs.raspopov.customer.dto.CustomerDto
+import ru.vsu.cs.raspopov.order.model.dto.request.OrderUpdateRequest
 import ru.vsu.cs.raspopov.order.model.dto.response.OrderListResponse
 
 interface IOrderService {
@@ -21,4 +22,5 @@ interface IOrderService {
 
     fun cancelOrder(customer: CustomerDto, request: OrderCancelRequest)
 
+    fun updateOrder(customer: CustomerDto, request: OrderUpdateRequest): OrderResponse
 }

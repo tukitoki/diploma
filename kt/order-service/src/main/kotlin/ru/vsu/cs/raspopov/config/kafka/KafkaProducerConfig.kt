@@ -22,7 +22,7 @@ class KafkaProducerConfig(
     @Bean
     fun <T> producerFactory(): DefaultKafkaProducerFactory<String, T> {
         val factory = DefaultKafkaProducerFactory<String, T>(producerConfig)
-        factory.transactionIdPrefix = "${appName}-${UUID.randomUUID()}-"
+        factory.setTransactionIdPrefix("${appName}-${UUID.randomUUID()}-")
 
         return factory
     }
