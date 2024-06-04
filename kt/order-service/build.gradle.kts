@@ -23,6 +23,7 @@ dependencies {
 
     implementation(platform(libs.spring.cloud.bom))
     api(libs.spring.cloud.starter.eureka.client)
+    api(libs.spring.cloud.starter.openfeign)
 
     api(libs.springdoc.openapi.starter.webmvc.ui)
 

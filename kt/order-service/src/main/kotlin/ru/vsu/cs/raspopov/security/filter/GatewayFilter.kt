@@ -3,42 +3,50 @@ package ru.vsu.cs.raspopov.security.filter
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter
+import ru.vsu.cs.raspopov.client.customer.CustomerOpenFeignClient
+import ru.vsu.cs.raspopov.client.customer.dto.CustomerByUserRequest
 
-class GatewayFilter : OncePerRequestFilter() {
+class GatewayFilter(
+    private val customerClient: CustomerOpenFeignClient,
+) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
         filterChain: FilterChain,
     ) {
-        // TODO: full implement
-        val apiKey = request.getHeader(API_KEY_HEADER)
-        val username = request.getHeader(USERNAME_HEADER)
-        apiKey?.let {
+        val userId = request.getHeader(USER_ID_HEADER).toLong()
+        val customerDto = customerClient.getCustomerByUserId(CustomerByUserRequest(userId))
 
-        } ?: run {
-            filterChain.doFilter(request, response)
-            return
-        }
+        val auth = UsernamePasswordAuthenticationToken(
+            customerDto,
+            null,
+            // TODO: impl
+            listOf(SimpleGrantedAuthority("ROLE_USER")),
+        )
 
+        SecurityContextHolder.getContext().authentication = auth
         filterChain.doFilter(request, response)
     }
 
     private companion object {
         const val API_KEY_HEADER = "X-API-key"
-        const val USERNAME_HEADER = "X-user-id"
+        const val USER_ID_HEADER = "x-auth-user-id"
 
         fun extractPayloadFromRequestHeaders(
             request: HttpServletRequest,
         ) {
-            request.getHeader(API_KEY_HEADER)
-            request.getHeader(USERNAME_HEADER)
+//            request.getHeader(API_KEY_HEADER)
+            request.getHeader(USER_ID_HEADER)
         }
 
         data class GatewayPayload(
-            val apiKey: String,
-            val username: String,
+//            val apiKey: String,
+            val id: Long,
         )
     }
 }
