@@ -1,6 +1,7 @@
 package ru.vsu.cs.raspopov.order.model.entity
 
 import ru.vsu.cs.raspopov.common.exception.GeneralException
+import ru.vsu.cs.raspopov.order.model.dto.request.OrderTempUpdateRequest
 import ru.vsu.cs.raspopov.order.model.dto.request.OrderUpdateRequest
 import ru.vsu.cs.raspopov.order.model.enums.OrderStatus
 
@@ -28,6 +29,10 @@ fun Order.updateAfterCheckout(request: OrderUpdateRequest) {
     this.reservedWindowId = request.windowId
     request.serviceId?.let { this.carServiceId = it }
     this.status = OrderStatus.PENDING
+}
+
+fun Order.updateTemp(request: OrderTempUpdateRequest) {
+    TODO("impl")
 }
 
 fun Order.cancel() {
