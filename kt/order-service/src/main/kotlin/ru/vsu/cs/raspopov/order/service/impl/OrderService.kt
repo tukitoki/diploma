@@ -14,7 +14,7 @@ import ru.vsu.cs.raspopov.exposed.findThrowableByPredicate
 import ru.vsu.cs.raspopov.order.model.dto.request.OrderCancelRequest
 import ru.vsu.cs.raspopov.order.model.dto.request.OrderCheckoutRequest
 import ru.vsu.cs.raspopov.order.model.dto.request.OrderCreateRequest
-import ru.vsu.cs.raspopov.order.model.dto.request.OrderUpdateRequest
+import ru.vsu.cs.raspopov.order.model.dto.request.OrderTempUpdateRequest
 import ru.vsu.cs.raspopov.order.model.dto.response.OrderResponse
 import ru.vsu.cs.raspopov.order.model.dto.response.OrderTemporaryResponse
 import ru.vsu.cs.raspopov.order.model.entity.Order
@@ -30,6 +30,7 @@ import ru.vsu.cs.raspopov.order.service.impl.useCases.OrderCheckoutUseCase
 @Transactional
 @Service
 class OrderService(
+    private val orderTemporaryService: OrderTemporaryService,
     private val checkoutUseCase: OrderCheckoutUseCase,
 ) : IOrderService {
 
@@ -49,29 +50,9 @@ class OrderService(
         request: OrderCheckoutRequest,
         customer: CustomerDto,
     ): OrderResponse {
-        val temporaryOrder = findThrowableTemporaryOrderById(customer.id)
+        val temporaryOrder = orderTemporaryService.findThrowableTemporaryOrderById(customer.id)
 
         return checkoutUseCase.invoke(request, temporaryOrder, customer)
-    }
-
-    override fun getTemporaryOrderState(
-        customer: CustomerDto,
-    ) = findThrowableTemporaryOrderById(customer.id).toTemporaryResponse()
-
-    override fun createTemporaryOrderState(
-        request: OrderCreateRequest,
-        customer: CustomerDto,
-    ): OrderTemporaryResponse {
-        TODO()
-    }
-
-    override fun updateTemporaryOrderState(
-        request: OrderUpdateRequest,
-        customer: CustomerDto,
-    ): OrderTemporaryResponse {
-        val temporaryOrder = findThrowableTemporaryOrderById(customer.id)
-
-        TODO("Not yet implemented")
     }
 
     override fun confirmOrder(customer: CustomerDto, id: Long) {
@@ -100,10 +81,4 @@ class OrderService(
         predicate: Op<Boolean>,
     ) = Orders.findThrowableById(id, GeneralException(ExceptionCode.ORDER_NOT_FOUND_BY_ID), predicate)
         .let { Order.wrapRow(it) }
-
-    internal fun findThrowableTemporaryOrderById(
-        customerId: Long,
-    ) = Orders.findThrowableByPredicate(GeneralException(ExceptionCode.TEMPORARY_ORDER_NO_CONTENT)) {
-        Orders.customerId.eq(customerId) and Orders.status.eq(OrderStatus.TEMPORARY)
-    }.let { Order.wrapRow(it) }
 }
