@@ -14,12 +14,12 @@ create table orders
 
 create table order_audit
 (
-    id            bigint primary key not null,
-    status        varchar            not null,
-    user_action   varchar            not null,
-    user_id       bigint             not null,
-    cancel_reason bigint,
-    order_id      bigint             not null
+    id          bigint primary key not null,
+    status      varchar            not null,
+    user_action varchar            not null,
+    user_id     bigint             not null,
+    description text,
+    order_id    bigint             not null
 );
 
 create table order_detail

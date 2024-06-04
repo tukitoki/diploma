@@ -12,7 +12,7 @@ object OrderAudits : TimeAtLongIdTable() {
     val userAction = enumerationByName("user_action", 100, OrderAction::class)
     val userId = long("user_id")
 
-    val cancelReason = varchar("cancel_reason", 500).nullable()
+    val description = varchar("description", 500).nullable()
 
     val orderId = reference("order_id", Orders)
 }

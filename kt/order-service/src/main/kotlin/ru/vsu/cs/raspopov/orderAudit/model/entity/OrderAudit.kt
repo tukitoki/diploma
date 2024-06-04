@@ -15,7 +15,7 @@ class OrderAudit(
     var moveFromStatus by OrderAudits.moveFromStatus
     var userAction by OrderAudits.userAction
     var userId by OrderAudits.userId
-    var cancelReason by OrderAudits.cancelReason
+    var description by OrderAudits.description
 
     var orderId by OrderAudits.orderId
     val order by Order referencedOn OrderAudits.orderId
