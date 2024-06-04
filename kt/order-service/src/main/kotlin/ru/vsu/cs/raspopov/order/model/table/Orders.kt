@@ -11,5 +11,5 @@ object Orders : TimeAtLongIdTable() {
     val reservedWindowId = long("reserved_window_id")
 
     val status = enumerationByName("status", 100, OrderStatus::class)
-    val description = varchar("description", 500).nullable()
+    val description = text("description").nullable()
 }
