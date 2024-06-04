@@ -7,5 +7,6 @@ enum class OperationResult {
 
 enum class PerformOperation {
     CHECKOUT,
-    UPDATE
+    UPDATE,
+    CONFIRM
 }

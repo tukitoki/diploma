@@ -21,6 +21,14 @@ fun Order.confirm() {
     this.status = OrderStatus.CONFIRMED
 }
 
+fun Order.pending() {
+    if (this.status.isCanBePending().not()) {
+        throw GeneralException("Order can't be pending status due status")
+    }
+
+    this.status = OrderStatus.PENDING
+}
+
 fun Order.updateAfterCheckout(request: OrderUpdateRequest) {
     if (this.status.isCanBeUpdate().not()) {
         throw GeneralException("Order can't be updated due status")

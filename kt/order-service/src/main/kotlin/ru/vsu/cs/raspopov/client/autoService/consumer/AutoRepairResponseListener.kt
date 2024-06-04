@@ -6,13 +6,15 @@ import org.springframework.stereotype.Component
 import ru.vsu.cs.raspopov.client.autoService.dto.AutoServiceResponse
 import ru.vsu.cs.raspopov.client.autoService.dto.PerformOperation
 import ru.vsu.cs.raspopov.config.kafka.SAGA_ORDER_LISTEN_TOPIC
-import ru.vsu.cs.raspopov.order.service.impl.useCases.OrderCheckoutResultUseCase
-import ru.vsu.cs.raspopov.order.service.impl.useCases.OrderUpdateResultUseCase
+import ru.vsu.cs.raspopov.order.service.impl.useCases.result.OrderCheckoutResultUseCase
+import ru.vsu.cs.raspopov.order.service.impl.useCases.result.OrderConfirmResultUseCase
+import ru.vsu.cs.raspopov.order.service.impl.useCases.result.OrderUpdateResultUseCase
 
 @Component
 class AutoRepairResponseListener(
     private val checkoutResultUseCase: OrderCheckoutResultUseCase,
     private val updateResultUseCase: OrderUpdateResultUseCase,
+    private val orderConfirmResultUseCase: OrderConfirmResultUseCase,
 ) {
 
     @KafkaListener(
@@ -25,6 +27,8 @@ class AutoRepairResponseListener(
             PerformOperation.CHECKOUT -> checkoutResultUseCase.invoke(response)
 
             PerformOperation.UPDATE -> updateResultUseCase.invoke(response)
+
+            PerformOperation.CONFIRM -> orderConfirmResultUseCase.invoke(response)
         }
 
         ack.acknowledge()
