@@ -1,6 +1,7 @@
 package ru.vsu.cs.raspopov.order.service.impl.useCases
 
 import org.springframework.stereotype.Service
+import ru.vsu.cs.raspopov.client.autoService.dto.messages.OrderCancelMessage
 import ru.vsu.cs.raspopov.client.autoService.producer.OrderMessageProducer
 import ru.vsu.cs.raspopov.customer.dto.CustomerDto
 import ru.vsu.cs.raspopov.order.model.dto.request.OrderCancelRequest
@@ -20,7 +21,7 @@ class OrderCancelUseCase(
         order.cancel()
 
         if (order.status.isScheduled()) {
-            producer.sendOrderCancelMessage(request)
+            producer.sendOrderCancelMessage(OrderCancelMessage(request))
         }
     }
 }

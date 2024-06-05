@@ -1,9 +1,9 @@
-package ru.vsu.cs.raspopov.client.autoService.dto
+package ru.vsu.cs.raspopov.client.autoService.dto.messages
 
 import ru.vsu.cs.raspopov.order.model.entity.Order
 
 data class OrderCreateMessage(
-    val orderId: Long,
+    val id: Long,
     val detailIds: Set<Long>,
     val carId: Long,
     val windowId: Long,
@@ -11,7 +11,7 @@ data class OrderCreateMessage(
     val customerId: Long,
 ) {
     constructor(order: Order) : this(
-        orderId = order.id.value,
+        id = order.id.value,
         detailIds = order.orderDetails.map { it.detailId }.toSet(),
         carId = order.carId,
         windowId = order.reservedWindowId,
