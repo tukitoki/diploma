@@ -14,7 +14,6 @@ import ru.vsu.cs.raspopov.order.model.dto.request.OrderCheckoutRequest
 import ru.vsu.cs.raspopov.order.model.dto.request.OrderUpdateRequest
 import ru.vsu.cs.raspopov.order.model.dto.response.OrderResponse
 import ru.vsu.cs.raspopov.order.model.entity.Order
-import ru.vsu.cs.raspopov.order.model.entity.cancel
 import ru.vsu.cs.raspopov.order.model.entity.confirm
 import ru.vsu.cs.raspopov.order.model.entity.updateAfterCheckout
 import ru.vsu.cs.raspopov.order.model.enums.OrderStatus
@@ -22,6 +21,7 @@ import ru.vsu.cs.raspopov.order.model.mapper.toListResponse
 import ru.vsu.cs.raspopov.order.model.mapper.toResponse
 import ru.vsu.cs.raspopov.order.model.table.Orders
 import ru.vsu.cs.raspopov.order.service.IOrderService
+import ru.vsu.cs.raspopov.order.service.impl.useCases.OrderCancelUseCase
 import ru.vsu.cs.raspopov.order.service.impl.useCases.OrderCheckoutUseCase
 import ru.vsu.cs.raspopov.order.service.impl.useCases.OrderUpdateAfterCheckoutUseCase
 
@@ -32,6 +32,7 @@ class OrderService(
 
     private val checkoutUseCase: OrderCheckoutUseCase,
     private val updateAfterCheckoutUseCase: OrderUpdateAfterCheckoutUseCase,
+    private val cancelUseCase: OrderCancelUseCase,
 ) : IOrderService {
 
     override fun getAllOrders(
@@ -64,11 +65,8 @@ class OrderService(
 
     override fun cancelOrder(customer: CustomerDto, request: OrderCancelRequest) {
         val order = findThrowableOrderById(request.id, Orders.customerId.eq(customer.id))
-        order.cancel()
 
-        if (order.status.isScheduled()) {
-            // TODO: implement work with schedule service
-        }
+        cancelUseCase.invoke(request, order, customer)
     }
 
     override fun updateOrder(customer: CustomerDto, request: OrderUpdateRequest): OrderResponse {
