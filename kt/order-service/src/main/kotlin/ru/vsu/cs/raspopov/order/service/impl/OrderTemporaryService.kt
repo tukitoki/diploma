@@ -1,6 +1,5 @@
 package ru.vsu.cs.raspopov.order.service.impl
 
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.and
 import org.springframework.stereotype.Service
 import ru.vsu.cs.raspopov.common.exception.ExceptionCode

@@ -7,6 +7,7 @@ create table orders
     customer_id        bigint             not null,
     car_service_id     bigint             not null,
     car_id             bigint             not null,
+    car_mileage        NUMERIC(8, 4)      not null,
     reserved_window_id bigint             not null,
     status             varchar,
     description        text

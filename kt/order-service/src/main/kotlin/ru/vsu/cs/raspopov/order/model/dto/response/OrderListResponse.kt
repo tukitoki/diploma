@@ -1,5 +1,6 @@
 package ru.vsu.cs.raspopov.order.model.dto.response
 
+import ru.vsu.cs.raspopov.order.model.enums.OrderStatus
 import java.math.BigDecimal
 
 data class OrderListResponse(
@@ -8,4 +9,5 @@ data class OrderListResponse(
     val carServiceId: Long,
     val reservedWindowId: Long,
     val carId: Long,
+    val status: OrderStatus,
 )

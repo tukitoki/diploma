@@ -18,6 +18,7 @@ fun Order.toResponse() = OrderResponse(
     orderDetails = this.orderDetails.map { it.toResponse() },
     orderWorks = this.orderWorks.map { it.toResponse() },
     orderEmployee = this.orderEmployee.toResponse(),
+    status = this.status,
 )
 
 fun Order.toTemporaryResponse() = OrderTemporaryResponse(
@@ -30,4 +31,5 @@ fun Order.toListResponse() = OrderListResponse(
     carServiceId = this.carServiceId,
     reservedWindowId = this.reservedWindowId,
     carId = this.carId,
+    status = this.status,
 )

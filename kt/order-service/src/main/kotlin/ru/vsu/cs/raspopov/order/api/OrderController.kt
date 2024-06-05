@@ -43,7 +43,7 @@ class OrderController(
     @PostMapping("/checkout")
     override fun checkout(
         @RequestBody request: OrderCheckoutRequest,
-        @AuthenticationPrincipal customer: CustomerDto
+        @AuthenticationPrincipal customer: CustomerDto,
     ): ResponseEntity<OrderResponse> {
         return ok(orderService.checkout(request, customer))
     }
