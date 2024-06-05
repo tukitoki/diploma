@@ -19,4 +19,8 @@ class OrderWorkService {
         this.price = request.price.toDouble()
         this.orderId = orderId
     }.toResponse()
+
+    fun deleteOrderWorkById(
+        id: Long,
+    ) = OrderWork.findById(id)?.delete()
 }

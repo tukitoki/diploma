@@ -19,4 +19,8 @@ class OrderDetailService {
         this.price = request.price.toDouble()
         this.orderId = orderId
     }.toResponse()
+
+    fun deleteOrderDetailById(
+        id: Long,
+    ) = OrderDetail.findById(id)?.delete()
 }
