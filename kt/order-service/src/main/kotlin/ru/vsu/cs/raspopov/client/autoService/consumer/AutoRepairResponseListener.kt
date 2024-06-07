@@ -5,6 +5,7 @@ import org.springframework.kafka.support.Acknowledgment
 import org.springframework.stereotype.Component
 import ru.vsu.cs.raspopov.client.autoService.dto.AutoServiceResponse
 import ru.vsu.cs.raspopov.client.autoService.dto.PerformOperation
+import ru.vsu.cs.raspopov.config.kafka.ORDER_CANCEL_LISTEN_TOPIC
 import ru.vsu.cs.raspopov.config.kafka.SAGA_ORDER_LISTEN_TOPIC
 import ru.vsu.cs.raspopov.order.service.impl.useCases.result.OrderCheckoutResultUseCase
 import ru.vsu.cs.raspopov.order.service.impl.useCases.result.OrderConfirmResultUseCase
@@ -30,6 +31,19 @@ class AutoRepairResponseListener(
 
             PerformOperation.CONFIRM -> orderConfirmResultUseCase.invoke(response)
         }
+
+        ack.acknowledge()
+
+        // TODO: add logging
+    }
+
+    @KafkaListener(
+        groupId = "order-group",
+        topics = [ORDER_CANCEL_LISTEN_TOPIC],
+        containerFactory = "autoRepairCancelListenerFactory"
+    )
+    fun listenAutoRepairCancelResponse(response: AutoServiceResponse, ack: Acknowledgment) {
+
 
         ack.acknowledge()
 

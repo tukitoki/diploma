@@ -13,6 +13,7 @@ import org.springframework.kafka.listener.ContainerProperties
 import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
 import org.springframework.kafka.support.serializer.JsonDeserializer
 import org.springframework.kafka.transaction.KafkaTransactionManager
+import ru.vsu.cs.raspopov.client.autoService.dto.AutoServiceCancelResponse
 import ru.vsu.cs.raspopov.client.autoService.dto.AutoServiceResponse
 
 @Configuration
@@ -29,6 +30,12 @@ class KafkaConsumerConfig(
         errorHandler: CommonErrorHandler,
         kafkaTransactionManager: KafkaTransactionManager<String, AutoServiceResponse>,
     ) = listenerFactory(AutoServiceResponse::class.java, errorHandler, kafkaTransactionManager)
+
+    @Bean
+    fun autoRepairCancelListenerFactory(
+        errorHandler: CommonErrorHandler,
+        kafkaTransactionManager: KafkaTransactionManager<String, AutoServiceCancelResponse>,
+    ) = listenerFactory(AutoServiceCancelResponse::class.java, errorHandler, kafkaTransactionManager)
 
     private fun <T> listenerFactory(
         clazz: Class<T>,
