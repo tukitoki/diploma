@@ -1,5 +1,6 @@
 package ru.vsu.cs.raspopov.order.service.impl.useCases
 
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import ru.vsu.cs.raspopov.client.autoService.dto.messages.OrderUpdateMessage
 import ru.vsu.cs.raspopov.client.autoService.producer.OrderMessageProducer
@@ -13,6 +14,7 @@ import ru.vsu.cs.raspopov.order.model.mapper.toResponse
 @Service
 class OrderUpdateAfterCheckoutUseCase(
     private val producer: OrderMessageProducer,
+    private val publisher: ApplicationEventPublisher,
 ) {
 
     fun invoke(

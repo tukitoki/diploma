@@ -8,6 +8,7 @@ object Orders : TimeAtLongIdTable() {
     val customerId = long("customer_id")
     val carServiceId = long("car_service_id")
     val carId = long("car_id")
+    val carMileage = double("car_mileage")
     val reservedWindowId = long("reserved_window_id")
 
     val status = enumerationByName("status", 100, OrderStatus::class)

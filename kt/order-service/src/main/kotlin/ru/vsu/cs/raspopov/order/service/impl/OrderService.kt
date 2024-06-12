@@ -3,6 +3,7 @@ package ru.vsu.cs.raspopov.order.service.impl
 import org.jetbrains.exposed.sql.Op
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.and
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import ru.vsu.cs.raspopov.common.exception.ExceptionCode
